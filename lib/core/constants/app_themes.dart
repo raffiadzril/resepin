@@ -20,6 +20,9 @@ class AppThemes {
       bodyLarge: TextStyle(color: AppColors.lightTextPrimary),
       bodyMedium: TextStyle(color: AppColors.lightTextSecondary),
     ),
+    iconTheme: const IconThemeData(
+      color: AppColors.lightTextPrimary,
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -39,6 +42,9 @@ class AppThemes {
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: AppColors.darkTextPrimary),
     bodyMedium: TextStyle(color: AppColors.darkTextSecondary),
+  ),
+  iconTheme: const IconThemeData(
+    color: AppColors.darkTextPrimary,
   ),
   );
 }

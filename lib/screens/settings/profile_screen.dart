@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/screens/widgets/recipe_card.dart';
 import '../../providers/theme_notifier.dart';
 import '../widgets/custom_bottom_nav.dart';
 
@@ -32,12 +35,16 @@ class ProfileScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.share),
             color: textColor,
-            onPressed: () {},
+            onPressed: () {
+
+            },
           ),
-          IconButton(
+            IconButton(
             icon: const Icon(Icons.settings),
             color: textColor,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/settings');
+            },
           ),
         ],
       ),
@@ -51,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage("assets/images/profile_levi.png"),
+                  backgroundImage: AssetImage("images/profile/salt-bae.webp"),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -59,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Levi Ackerman",
+                        "Chef Salt Bae",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -105,121 +112,115 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             // Garis pemisah
-            Divider(color: greyColor.withOpacity(1), thickness: 2),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              height: 4,
+              color:
+                  isDarkMode
+                      ? Colors.white.withOpacity(0.2)
+                      : Colors.black.withOpacity(0.1),
+              width: double.infinity,
+            ),
             const SizedBox(height: 16),
-            _buildRecipeGrid(textColor, greyColor, context),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RecipeCard(
+                  title: "Rendang Lebaran",
+                  chef: "Chef Salt Bae",
+                  time: "8 jam",
+                  imagePath: "images/home/rendangLebaran.png",
+                  rating: 4.9, // ✅ Tambahkan rating
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+                RecipeCard(
+                  title: "Chinese Dimsum",
+                  chef: "Chef Salt Bae",
+                  time: "2 jam",
+                  imagePath: "images/home/chineseDimsum.png",
+                  rating: 4.7,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RecipeCard(
+                  title: "Ayam Panggang",
+                  chef: "Chef Salt Bae",
+                  time: "1.5 jam",
+                  imagePath: "images/home/ayamPanggang.png",
+                  rating: 4.8,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+                RecipeCard(
+                  title: "Ayam Panggang",
+                  chef: "Chef Salt Bae",
+                  time: "1.5 jam",
+                  imagePath: "images/home/ayamPanggang.png",
+                  rating: 4.8,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RecipeCard(
+                  title: "Ayam Panggang",
+                  chef: "Chef Salt Bae",
+                  time: "1.5 jam",
+                  imagePath: "images/home/ayamPanggang.png",
+                  rating: 4.8,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+                RecipeCard(
+                  title: "Ayam Panggang",
+                  chef: "Chef Salt Bae",
+                  time: "1.5 jam",
+                  imagePath: "images/home/ayamPanggang.png",
+                  rating: 4.8,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RecipeCard(
+                  title: "Ayam Panggang",
+                  chef: "Chef Salt Bae",
+                  time: "1.5 jam",
+                  imagePath: "images/home/ayamPanggang.png",
+                  rating: 4.8,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+                RecipeCard(
+                  title: "Ayam Panggang",
+                  chef: "Chef Salt Bae",
+                  time: "1.5 jam",
+                  imagePath: "images/home/ayamPanggang.png",
+                  rating: 4.8,
+                  textColor: textColor,
+                  greyColor: greyColor,
+                ),
+              ],
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildRecipeGrid(
-    Color textColor,
-    Color greyColor,
-    BuildContext context,
-  ) {
-    final recipes = List.generate(
-      6,
-      (index) => {
-        "title": "Rendang Lebaran",
-        "chef": "Chef Juna",
-        "time": "8 jam",
-        "image": "assets/images/rendang.jpg",
-      },
-    );
-
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: recipes.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        childAspectRatio: 3 / 3.8,
-      ),
-      itemBuilder: (context, index) {
-        final recipe = recipes[index];
-        return Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.grey.withOpacity(0.05),
-                blurRadius: 6,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
-                child: Image.asset(
-                  recipe["image"]!,
-                  height: 100,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recipe["title"]!,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: textColor,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      recipe["chef"]!,
-                      style: TextStyle(fontSize: 12, color: greyColor),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          size: 12,
-                          color: AppColors.orange,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          "4.7",
-                          style: TextStyle(fontSize: 12, color: greyColor),
-                        ),
-                        const Spacer(),
-                        const Icon(
-                          Icons.access_time,
-                          size: 12,
-                          color: AppColors.grey,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          recipe["time"]!,
-                          style: TextStyle(fontSize: 12, color: greyColor),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
