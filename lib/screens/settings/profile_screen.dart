@@ -23,7 +23,10 @@ class ProfileScreen extends StatelessWidget {
           color: textColor,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Profil', style: TextStyle(color: textColor, fontWeight: FontWeight.bold)),
+        title: Text(
+          'Profil',
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -44,46 +47,68 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 12),
-            const Center(
-              child: CircleAvatar(
-                radius: 45,
-                backgroundImage: AssetImage("assets/images/profile_levi.png"),
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              "Levi Ackerman",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: textColor,
-              ),
-            ),
-            const SizedBox(height: 12),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                _StatItem(label: "Resep", value: "6"),
-                _StatItem(label: "Pengikut", value: "98"),
-                _StatItem(label: "Mengikuti", value: "98"),
+              children: [
+                const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage("assets/images/profile_levi.png"),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Levi Ackerman",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: textColor,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          _StatItem(label: "Resep", value: "6"),
+                          _StatItem(label: "Pengikut", value: "98"),
+                          _StatItem(label: "Mengikuti", value: "98"),
+                        ],
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 10,
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Edit Profile",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Edit Profile",
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 24),
+
+            const SizedBox(height: 16),
+            // Garis pemisah
+            Divider(color: greyColor.withOpacity(1), thickness: 2),
+            const SizedBox(height: 16),
             _buildRecipeGrid(textColor, greyColor, context),
           ],
         ),
@@ -91,13 +116,20 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecipeGrid(Color textColor, Color greyColor, BuildContext context) {
-    final recipes = List.generate(6, (index) => {
-      "title": "Rendang Lebaran",
-      "chef": "Chef Juna",
-      "time": "8 jam",
-      "image": "assets/images/rendang.jpg",
-    });
+  Widget _buildRecipeGrid(
+    Color textColor,
+    Color greyColor,
+    BuildContext context,
+  ) {
+    final recipes = List.generate(
+      6,
+      (index) => {
+        "title": "Rendang Lebaran",
+        "chef": "Chef Juna",
+        "time": "8 jam",
+        "image": "assets/images/rendang.jpg",
+      },
+    );
 
     return GridView.builder(
       shrinkWrap: true,
@@ -160,13 +192,27 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        const Icon(Icons.star, size: 12, color: AppColors.orange),
+                        const Icon(
+                          Icons.star,
+                          size: 12,
+                          color: AppColors.orange,
+                        ),
                         const SizedBox(width: 4),
-                        Text("4.7", style: TextStyle(fontSize: 12, color: greyColor)),
+                        Text(
+                          "4.7",
+                          style: TextStyle(fontSize: 12, color: greyColor),
+                        ),
                         const Spacer(),
-                        const Icon(Icons.access_time, size: 12, color: AppColors.grey),
+                        const Icon(
+                          Icons.access_time,
+                          size: 12,
+                          color: AppColors.grey,
+                        ),
                         const SizedBox(width: 4),
-                        Text(recipe["time"]!, style: TextStyle(fontSize: 12, color: greyColor)),
+                        Text(
+                          recipe["time"]!,
+                          style: TextStyle(fontSize: 12, color: greyColor),
+                        ),
                       ],
                     ),
                   ],
@@ -188,10 +234,18 @@ class _StatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
+    final textColor =
+        Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
     return Column(
       children: [
-        Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: textColor)),
+        Text(
+          value,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: textColor,
+          ),
+        ),
         const SizedBox(height: 2),
         Text(label, style: TextStyle(fontSize: 12, color: Colors.grey)),
       ],
