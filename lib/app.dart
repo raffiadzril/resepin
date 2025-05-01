@@ -4,6 +4,7 @@ import 'core/constants/app_themes.dart';
 import 'providers/theme_notifier.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/start_screen.dart'; // <-- tambahkan ini
+import 'screens/settings/profile_screen.dart'; // <-- tambahkan ini
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/start': (context) => const StartScreen(), // <-- tambahkan ini
         '/home': (context) => const HomeScreen(),
+        '/profile': (context) => ProfileScreen(),
 
       },
     );
