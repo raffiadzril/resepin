@@ -9,6 +9,7 @@ class AppColors {
 
   // Light theme
   static const Color lightBackground = Color(0xFFFFFFFF);
+  static const Color lightBox2 = Color(0xFFF1F1F1);
   static const Color lightBox = Color(0xFFD9D9D9);
 
   // Dark theme

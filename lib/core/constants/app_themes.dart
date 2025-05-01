@@ -6,7 +6,7 @@ class AppThemes {
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.lightBackground,
     primaryColor: AppColors.primary,
-    cardColor: AppColors.lightBox,
+    cardColor: AppColors.lightBox2,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
