@@ -75,6 +75,7 @@ class ProfileScreen extends StatelessWidget {
                           _StatItem(label: "Mengikuti", value: "98"),
                         ],
                       ),
+                      const SizedBox(height: 10),
                       Container(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -103,9 +104,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-
-            const SizedBox(height: 16),
             // Garis pemisah
             Divider(color: greyColor.withOpacity(1), thickness: 2),
             const SizedBox(height: 16),
