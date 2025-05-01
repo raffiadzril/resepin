@@ -17,13 +17,16 @@ class HomeScreen extends StatelessWidget {
     final greyColor = theme.textTheme.bodyMedium?.color ?? Colors.grey;
 
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         toolbarHeight: 56, // Adjust the height of the AppBar
         title: const SearchBarWidget(),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: isDarkMode ? Colors.white : Colors.black, // Sesuaikan warna ikon dengan tema
+          color:
+              isDarkMode
+                  ? Colors.white
+                  : Colors.black, // Sesuaikan warna ikon dengan tema
         ),
         actions: [
           IconButton(
@@ -33,7 +36,10 @@ class HomeScreen extends StatelessWidget {
             ),
             onPressed:
                 () =>
-                    Provider.of<ThemeNotifier>(context, listen: false).toggleTheme(),
+                    Provider.of<ThemeNotifier>(
+                      context,
+                      listen: false,
+                    ).toggleTheme(),
           ),
           IconButton(
             icon: Icon(Icons.notifications, color: AppColors.primary),
@@ -49,34 +55,45 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Search & Carousel
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 12),
-              height: 160,
-              child: PageView(
-                children: [
-                  _buildCarouselCard(
+              margin: const EdgeInsets.symmetric(vertical: 1),
+              height: 147,
+              child: PageView.builder(
+                controller: PageController(
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                ), // <-- Ukuran card
+                padEnds: false, // <-- ini yang menghilangkan padding kiri/kanan
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  final items = [
+                    {
+                      "title": "Cari Resep Berdasarkan Bahan",
+                      "image": "assets/images/home/refrigerator.png",
+                      "color": AppColors.primary,
+                    },
+                    {
+                      "title": "Trending Resep",
+                      "image": "assets/images/trending.jpg",
+                      "color": AppColors.orange,
+                    },
+                    {
+                      "title": "Resep Teraru",
+                      "image": "assets/images/resep_baru.jpg",
+                      "color": AppColors.primary,
+                    },
+                  ];
+                  final item = items[index];
+                  return _buildCarouselCard(
                     context,
-                    "Cari Resep Berdasarkan Bahan",
-                    "assets/images/cari_resep.jpg",
+                    item["title"] as String,
+                    item["image"] as String,
                     textColor,
-                    AppColors.primary,
-                  ),
-                  _buildCarouselCard(
-                    context,
-                    "Trending Resep",
-                    "assets/images/trending.jpg",
-                    textColor,
-                    AppColors.orange,
-                  ),
-                  _buildCarouselCard(
-                    context,
-                    "Resep Teraru",
-                    "assets/images/resep_baru.jpg",
-                    textColor,
-                    AppColors.primary,
-                  ),
-                ],
+                    item["color"] as Color,
+                  );
+                },
               ),
             ),
+
             const SizedBox(height: 16),
 
             // Trending Resep
@@ -189,22 +206,17 @@ class HomeScreen extends StatelessWidget {
     Color textColor,
     Color gradienColor,
   ) {
-    final cardWidth =
-        MediaQuery.of(context).size.width *
-        0.5; // Adjust width to make next card slightly more visible
     return Container(
       margin: const EdgeInsets.only(right: 12),
-      width: cardWidth, // Adjust width of the container
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(33),
         image: DecorationImage(
           image: AssetImage(imagePath),
           fit: BoxFit.cover,
-          onError: (_, __) {}, // prevent crash on missing asset
+          onError: (_, __) {},
         ),
       ),
       child: Container(
-        width: cardWidth, // Adjust width of the child
         padding: const EdgeInsets.all(16),
         alignment: Alignment.bottomLeft,
         decoration: BoxDecoration(

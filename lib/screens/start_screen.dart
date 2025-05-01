@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/providers/theme_notifier.dart'; // sesuaikan path
-import 'package:resepin/core/constants/app_colors.dart'; // sesuaikan path
-import 'package:resepin/core/constants/app_themes.dart'; // sesuaikan path
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
