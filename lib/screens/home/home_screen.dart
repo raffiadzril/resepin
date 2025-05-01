@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/core/constants/app_colors.dart';
 import 'package:resepin/screens/widgets/BackButtonFloating.dart';
+import 'package:resepin/screens/widgets/recipe_card.dart';
 import '../../providers/theme_notifier.dart';
 import '../widgets/custom_bottom_nav.dart';
 import '../widgets/search_bar.dart';
@@ -111,32 +112,32 @@ class HomeScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _buildRecipeCard(
-                    context,
-                    "Rendang Lebaran",
-                    "Chef Juna",
-                    "8 jam",
-                    "images/home/rendangLebaran.png",
-                    textColor,
-                    greyColor,
+                  RecipeCard(
+                    title: "Rendang Lebaran",
+                    chef: "Chef Juna",
+                    time: "8 jam",
+                    imagePath: "images/home/rendangLebaran.png",
+                    rating: 4.9, // ✅ Tambahkan rating
+                    textColor: textColor,
+                    greyColor: greyColor,
                   ),
-                  _buildRecipeCard(
-                    context,
-                    "Chinese Dimsum",
-                    "Chef Arnold",
-                    "2 jam",
-                    "images/home/chineseDimsum.png",
-                    textColor,
-                    greyColor,
+                  RecipeCard(
+                    title: "Chinese Dimsum",
+                    chef: "Chef Arnold",
+                    time: "2 jam",
+                    imagePath: "images/home/chineseDimsum.png",
+                    rating: 4.7,
+                    textColor: textColor,
+                    greyColor: greyColor,
                   ),
-                  _buildRecipeCard(
-                    context,
-                    "Ayam Panggang",
-                    "Chef Juleha",
-                    "1.5 jam",
-                    "images/home/ayamPanggang.png",
-                    textColor,
-                    greyColor,
+                  RecipeCard(
+                    title: "Ayam Panggang",
+                    chef: "Chef Juleha",
+                    time: "1.5 jam",
+                    imagePath: "images/home/ayamPanggang.png",
+                    rating: 4.8,
+                    textColor: textColor,
+                    greyColor: greyColor,
                   ),
                 ],
               ),
@@ -172,23 +173,50 @@ class HomeScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _buildRecipeCard(
-                    context,
-                    "Chocolate Mousse",
-                    "Chef Reynald",
-                    "1 jam",
-                    "images/home/chocolateMousse.png",
-                    textColor,
-                    greyColor,
+                  RecipeCard(
+                    title: "Chocolate Mousse",
+                    chef: "Chef Reynald",
+                    time: "1 jam",
+                    imagePath: "images/home/chocolateMousse.png",
+                    rating: 4.8,
+                    textColor: textColor,
+                    greyColor: greyColor,
                   ),
-                  _buildRecipeCard(
-                    context,
-                    "Dendeng Batokok",
-                    "Chef Renatta",
-                    "3 jam",
-                    "images/home/dendengBatokok.png",
-                    textColor,
-                    greyColor,
+                  RecipeCard(
+                    title: "Dendeng Batokok",
+                    chef: "Chef Renatta",
+                    time: "3 jam",
+                    imagePath: "images/home/dendengBatokok.png",
+                    rating: 4.7,
+                    textColor: textColor,
+                    greyColor: greyColor,
+                  ),
+                  RecipeCard(
+                    title: "Nasi Goreng Kampung",
+                    chef: "Chef Juleha",
+                    time: "45 menit",
+                    imagePath: "images/home/nasiGorengKampung.png",
+                    rating: 4.6,
+                    textColor: textColor,
+                    greyColor: greyColor,
+                  ),
+                  RecipeCard(
+                    title: "Spaghetti Carbonara",
+                    chef: "Chef Gordon",
+                    time: "1.5 jam",
+                    imagePath: "images/home/spaghettiCarbonara.png",
+                    rating: 4.9,
+                    textColor: textColor,
+                    greyColor: greyColor,
+                  ),
+                  RecipeCard(
+                    title: "Martabak Manis",
+                    chef: "Chef Rangga",
+                    time: "1 jam",
+                    imagePath: "images/home/martabakManis.png",
+                    rating: 4.5,
+                    textColor: textColor,
+                    greyColor: greyColor,
                   ),
                 ],
               ),
