@@ -44,7 +44,9 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.notifications, color: AppColors.primary),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/notification');
+            },
           ),
         ],
       ),

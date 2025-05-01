@@ -6,6 +6,7 @@ import 'screens/home/home_screen.dart';
 import 'screens/start_screen.dart'; // <-- tambahkan ini
 import 'screens/settings/profile_screen.dart'; // <-- tambahkan ini
 import 'screens/settings/settings_screen.dart'; // <-- tambahkan ini
+import 'screens/home/notifikation_screen.dart'; // <-- tambahkan ini
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/start': (context) => const StartScreen(), // <-- tambahkan ini
         '/home': (context) => const HomeScreen(),
+        '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
 
