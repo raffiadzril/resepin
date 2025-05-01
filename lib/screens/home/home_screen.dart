@@ -68,17 +68,17 @@ class HomeScreen extends StatelessWidget {
                   final items = [
                     {
                       "title": "Cari Resep Berdasarkan Bahan",
-                      "image": "assets/images/home/refrigerator.png",
+                      "image": "images/home/refrigerator.png",
                       "color": AppColors.primary,
                     },
                     {
                       "title": "Trending Resep",
-                      "image": "assets/images/trending.jpg",
+                      "image": "images/home/makanan.png",
                       "color": AppColors.orange,
                     },
                     {
                       "title": "Resep Teraru",
-                      "image": "assets/images/resep_baru.jpg",
+                      "image": "images/home/makanan.png",
                       "color": AppColors.primary,
                     },
                   ];
@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     item["title"] as String,
                     item["image"] as String,
-                    textColor,
+                    AppColors.darkTextPrimary,
                     item["color"] as Color,
                   );
                 },
@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                     "Rendang Lebaran",
                     "Chef Juna",
                     "8 jam",
-                    "assets/images/rendang.jpg",
+                    "images/home/rendangLebaran.png",
                     textColor,
                     greyColor,
                   ),
@@ -125,16 +125,16 @@ class HomeScreen extends StatelessWidget {
                     "Chinese Dimsum",
                     "Chef Arnold",
                     "2 jam",
-                    "assets/images/dimsum.jpg",
+                    "images/home/chineseDimsum.png",
                     textColor,
                     greyColor,
                   ),
                   _buildRecipeCard(
                     context,
-                    "Ayam Bakar",
+                    "Ayam Panggang",
                     "Chef Juleha",
                     "1.5 jam",
-                    "assets/images/ayam.jpg",
+                    "images/home/ayamPanggang.png",
                     textColor,
                     greyColor,
                   ),
@@ -145,6 +145,15 @@ class HomeScreen extends StatelessWidget {
 
             // Resep Baru
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+              Text(
+                "Lihat Selengkapnya",
+                style: TextStyle(color: AppColors.primary),
+              ),
+              ],
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -154,10 +163,6 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: textColor,
                   ),
-                ),
-                Text(
-                  "Lihat Selengkapnya",
-                  style: TextStyle(color: AppColors.primary),
                 ),
               ],
             ),
@@ -172,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                     "Chocolate Mousse",
                     "Chef Reynald",
                     "1 jam",
-                    "assets/images/chocolate_mousse.jpg",
+                    "images/home/chocolateMousse.png",
                     textColor,
                     greyColor,
                   ),
@@ -181,15 +186,28 @@ class HomeScreen extends StatelessWidget {
                     "Dendeng Batokok",
                     "Chef Renatta",
                     "3 jam",
-                    "assets/images/dendeng.jpg",
+                    "images/home/dendengBatokok.png",
                     textColor,
                     greyColor,
                   ),
                 ],
               ),
             ),
+            Container(
+              margin: const EdgeInsets.only(top: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                Text(
+                  "Lihat Selengkapnya",
+                  style: TextStyle(color: AppColors.primary),
+                ),
+                ],
+              ),
+            ),
           ],
         ),
+        
       ),
       floatingActionButton: BackButtonFloating(
         onPressed: () {
