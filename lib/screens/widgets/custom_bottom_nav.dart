@@ -22,11 +22,11 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
   ];
 
   final List<String> _labels = [
-    'Home',
-    'Calendar',
-    'Add',
-    'Bookmark',
-    'Profile',
+    'Beranda',
+    'Rencana',
+    'Tambah Resep',
+    'Simpan Resep',
+    'Profil',
   ];
 
   @override
@@ -49,7 +49,7 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
       break;
       case 1:
       // Navigate to Calendar screen
-      Navigator.pushNamed(context, '/calendar');
+      Navigator.pushNamed(context, '/rencana');
       break;
       case 2:
       // Navigate to Add screen
