@@ -1,58 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class AddResepAndaScreen extends StatefulWidget {
+  const AddResepAndaScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Meal Planner',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.red,
-        scaffoldBackgroundColor: Colors.black,
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 28,
-          ),
-          bodyLarge: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
-        ),
-      ),
-      home: const RecipeSelectionScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  _AddResepAndaScreenState createState() => _AddResepAndaScreenState();
 }
 
-class Recipe {
-  final String name;
-  final String imageUrl;
-  bool isSelected;
-
-  Recipe({
-    required this.name,
-    required this.imageUrl,
-    this.isSelected = false,
-  });
-}
-
-class RecipeSelectionScreen extends StatefulWidget {
-  const RecipeSelectionScreen({Key? key}) : super(key: key);
-
-  @override
-  State<RecipeSelectionScreen> createState() => _RecipeSelectionScreenState();
-}
-
-class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
+class _AddResepAndaScreenState extends State<AddResepAndaScreen> {
   final List<Recipe> availableRecipes = [
     Recipe(
       name: 'Pasta Carbonara',
@@ -64,19 +19,7 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
     ),
   ];
 
-  final List<Recipe> selectedRecipes = [
-    Recipe(
-      name: 'Pasta Carbonara',
-      imageUrl: 'https://example.com/pasta.jpg',
-      isSelected: true,
-    ),
-    Recipe(
-      name: 'Ayam Panggang',
-      imageUrl: 'https://example.com/ayam.jpg',
-      isSelected: true,
-    ),
-  ];
-
+  final List<Recipe> selectedRecipes = [];
   final TextEditingController _searchController = TextEditingController();
   bool _showSuccessMessage = true;
 
@@ -88,57 +31,52 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Tambah Resep Anda',
+          style: theme.textTheme.titleLarge,
+        ),
+        backgroundColor: theme.scaffoldBackgroundColor,
+        elevation: 0,
+        iconTheme: IconThemeData(color: theme.iconTheme.color),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            // Success message
             if (_showSuccessMessage) _buildSuccessMessage(),
-            
-            // Main content
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Header
                     Center(
                       child: Text(
                         'Tambah Resep\ndari Resep Anda',
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: theme.textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(height: 24),
-                    
-                    // Search bar
                     _buildSearchBar(),
                     const SizedBox(height: 16),
-                    
-                    // Recipe list
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            // Available recipes
                             ...availableRecipes.map((recipe) => _buildRecipeCard(recipe)),
-                            
                             const SizedBox(height: 32),
-                            
-                            // Selected day header
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 'Senin',
-                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                  fontSize: 24,
-                                ),
+                                style: theme.textTheme.titleLarge?.copyWith(fontSize: 24),
                               ),
                             ),
                             const SizedBox(height: 16),
-                            
-                            // Selected recipes
                             ...selectedRecipes.map((recipe) => _buildSelectedRecipeItem(recipe)),
                           ],
                         ),
@@ -148,8 +86,6 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
                 ),
               ),
             ),
-            
-            // Confirm button
             _buildConfirmButton(),
           ],
         ),
@@ -161,12 +97,9 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 16.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.green,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: const Text(
         'Rencana masak berhasil dibuat!',
@@ -211,7 +144,6 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            // Recipe image
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
@@ -220,7 +152,6 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
                 height: 80,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
-                  // Placeholder for image loading errors
                   return Container(
                     width: 80,
                     height: 80,
@@ -231,8 +162,6 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
               ),
             ),
             const SizedBox(width: 16),
-            
-            // Recipe name
             Expanded(
               child: Text(
                 recipe.name,
@@ -242,8 +171,6 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
                 ),
               ),
             ),
-            
-            // Select button
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -279,11 +206,8 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Row(
         children: [
-          // Fork and knife icon
           const Icon(Icons.restaurant, color: Colors.white),
           const SizedBox(width: 16),
-          
-          // Recipe name
           Expanded(
             child: Text(
               recipe.name,
@@ -293,13 +217,10 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
               ),
             ),
           ),
-          
-          // Delete button
           ElevatedButton(
             onPressed: () {
               setState(() {
                 selectedRecipes.removeWhere((r) => r.name == recipe.name);
-                // Also update the available recipes list
                 for (var r in availableRecipes) {
                   if (r.name == recipe.name) {
                     r.isSelected = false;
@@ -328,7 +249,6 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
       padding: const EdgeInsets.all(16.0),
       child: ElevatedButton(
         onPressed: () {
-          // Handle confirmation
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Meal plan confirmed!'),
@@ -354,4 +274,16 @@ class _RecipeSelectionScreenState extends State<RecipeSelectionScreen> {
       ),
     );
   }
+}
+
+class Recipe {
+  final String name;
+  final String imageUrl;
+  bool isSelected;
+
+  Recipe({
+    required this.name,
+    required this.imageUrl,
+    this.isSelected = false,
+  });
 }

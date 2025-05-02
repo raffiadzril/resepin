@@ -7,55 +7,95 @@ import 'add_resep_anda.dart';
 import 'add_resep_baru.dart';
 import 'add_resep_tersimpan.dart';
 
-class RencanaMenuScreen extends StatefulWidget {
-  RencanaMenuScreen({Key? key}) : super(key: key);
+class Recipe {
+  final String name;
+  final String imageUrl;
+  final double rating;
+  final String chef;
+  final String cookTime;
 
-  @override
-  _RencanaMenuScreenState createState() => _RencanaMenuScreenState();
+  Recipe({
+    required this.name,
+    required this.imageUrl,
+    required this.rating,
+    required this.chef,
+    required this.cookTime,
+  });
 }
 
-class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
+class DayPlan {
+  final String day;
+  Recipe? recipe;
 
-  // Add global keys to track button positions
-  final List<GlobalKey> _dayButtonKeys = List.generate(7, (index) => GlobalKey());
+  DayPlan({required this.day, this.recipe});
+}
 
-  // Add a nullable OverlayEntry field
-  OverlayEntry? _overlayEntry;
+class RencanaMenuAfterScreen extends StatefulWidget {
+  const RencanaMenuAfterScreen({Key? key}) : super(key: key);
 
-  // Define the daysOfWeek variable
-  final List<String> daysOfWeek = [
-    'S',
-    'S',
-    'R',
-    'K',
-    'J',
-    'S',
-    'M',
+  @override
+  State<RencanaMenuAfterScreen> createState() => _RencanaMenuAfterScreenState();
+}
+
+class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
+  final List<DayPlan> weekPlan = [
+    DayPlan(
+      day: 'Senin',
+      recipe: Recipe(
+        name: 'Rendang Lebaran',
+        imageUrl: 'https://example.com/rendang.jpg',
+        rating: 4.7,
+        chef: 'Chef Juna',
+        cookTime: '1 jam',
+      ),
+    ),
+    DayPlan(
+      day: 'Selasa',
+      recipe: Recipe(
+        name: 'Pasta Carbonara',
+        imageUrl: 'https://example.com/pasta.jpg',
+        rating: 4.6,
+        chef: 'Rendy Ando',
+        cookTime: '1 jam',
+      ),
+    ),
+    DayPlan(day: 'Rabu'),
+    DayPlan(day: 'Kamis'),
+    DayPlan(day: 'Jum\'at'),
+    DayPlan(day: 'Sabtu'),
+    DayPlan(day: 'Minggu'),
   ];
 
-  // Define the activeWeekdays variable
-  final List<int> activeWeekdays = [0, 1, 2, 4]; // Example: Active weekdays are Monday, Tuesday, Wednesday, and Friday
+  final List<String> weekdayInitials = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
+  final List<int> activeWeekdays = [0, 1, 4];
+
+  OverlayEntry? _overlayEntry;
+  int? _selectedDayIndex;
+  final List<GlobalKey> _dayButtonKeys = [];
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < weekPlan.length; i++) {
+      _dayButtonKeys.add(GlobalKey());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
     final theme = Theme.of(context);
-    final textColor = theme.textTheme.bodyLarge?.color ?? Colors.black;
 
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56,
         title: Text(
           'Meal Planner',
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-          ),
+          style: theme.textTheme.titleLarge,
         ),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: isDarkMode ? Colors.white : Colors.black,
+          color: theme.iconTheme.color,
         ),
       ),
       bottomNavigationBar: const CustomBottomNav(currentIndex: 1),
@@ -65,7 +105,6 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Week navigation
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Row(
@@ -83,20 +122,16 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
                   ],
                 ),
               ),
-
-              // Weekday indicators
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List.generate(
-                    daysOfWeek.length,
+                    weekdayInitials.length,
                     (index) => _buildWeekdayCircle(index, theme),
                   ),
                 ),
               ),
-
-              // Start meal plan button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -115,15 +150,12 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
-
-              // Days list
               Expanded(
                 child: ListView.builder(
-                  itemCount: daysOfWeek.length,
+                  itemCount: weekPlan.length,
                   itemBuilder: (context, index) {
-                    return _buildDayCard(context, index, theme);
+                    return _buildDayCard(index, theme);
                   },
                 ),
               ),
@@ -147,7 +179,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
       ),
       child: Center(
         child: Text(
-          daysOfWeek[index],
+          weekdayInitials[index],
           style: TextStyle(
             color: isActive ? Colors.white : theme.hintColor,
             fontWeight: FontWeight.bold,
@@ -157,49 +189,145 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
     );
   }
 
-  Widget _buildDayCard(BuildContext context, int index, ThemeData theme) {
+  Widget _buildDayCard(int index, ThemeData theme) {
+    final day = weekPlan[index];
+
     return Container(
-      margin: const EdgeInsets.only(bottom: 12.0),
+      margin: const EdgeInsets.only(bottom: 16.0),
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  day.day,
+                  style: theme.textTheme.bodyLarge,
+                ),
+                ElevatedButton(
+                  key: _dayButtonKeys[index],
+                  onPressed: () {
+                    _showRecipeOptions(context, index, theme);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.dividerColor,
+                    foregroundColor: theme.textTheme.bodyLarge?.color,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.add, size: 16),
+                      SizedBox(width: 4),
+                      Text('Add'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (day.recipe != null) _buildRecipeCard(day.recipe!, theme),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecipeCard(Recipe recipe, ThemeData theme) {
+    return Column(
+      children: [
+        Stack(
           children: [
-            Text(
-              daysOfWeek[index],
-              style: TextStyle(
-                color: theme.textTheme.bodyLarge?.color,
-                fontSize: 16,
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
+              child: Image.network(
+                recipe.imageUrl,
+                height: 150,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 150,
+                    width: double.infinity,
+                    color: theme.dividerColor,
+                    child: const Center(
+                      child: Icon(Icons.restaurant, size: 50, color: Colors.grey),
+                    ),
+                  );
+                },
               ),
             ),
-            ElevatedButton(
-              key: _dayButtonKeys[index],
-              onPressed: () {
-                _showRecipeOptions(context, index, Theme.of(context));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.dividerColor,
-                foregroundColor: theme.textTheme.bodyLarge?.color,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+            Positioned(
+              top: 8,
+              left: 8,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  shape: BoxShape.circle,
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              ),
-              child: Row(
-                children: const [
-                  Icon(Icons.add, size: 16),
-                  SizedBox(width: 4),
-                  Text('Add'),
-                ],
+                child: IconButton(
+                  icon: const Icon(Icons.refresh, color: Colors.white),
+                  onPressed: () {},
+                  iconSize: 20,
+                  padding: const EdgeInsets.all(8),
+                ),
               ),
             ),
           ],
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                recipe.name,
+                style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.amber, size: 16),
+                      const SizedBox(width: 4),
+                      Text(
+                        recipe.rating.toString(),
+                        style: theme.textTheme.bodyLarge?.copyWith(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    recipe.chef,
+                    style: theme.textTheme.bodyLarge?.copyWith(fontSize: 14),
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.access_time, color: Colors.grey, size: 16),
+                      const SizedBox(width: 4),
+                      Text(
+                        recipe.cookTime,
+                        style: theme.textTheme.bodyLarge?.copyWith(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -285,31 +413,28 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       child: Row(
-        children: newMethod(icon, text, theme),
-      ),
-    );  
-  }
-
-  List<Widget> newMethod(IconData icon, String text, ThemeData theme) {
-    return [
-        Icon(icon, color: Colors.white, size: 20),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(color: theme.textTheme.bodyLarge?.color),
+        children: [
+          Icon(icon, color: Colors.white, size: 20),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              text,
+              style: theme.textTheme.bodyLarge,
+            ),
           ),
-        ),
-      ];
+        ],
+      ),
+    );
   }
-    void _removeOverlay() {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
-    }
 
-    @override
-    void dispose() {
-      _removeOverlay();
-      super.dispose();
-    }
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  @override
+  void dispose() {
+    _removeOverlay();
+    super.dispose();
+  }
 }

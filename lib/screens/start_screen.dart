@@ -10,6 +10,7 @@ class StartScreen extends StatelessWidget {
     final List<Map<String, dynamic>> features = [
       {'label': 'Home', 'route': '/home'},
       {'label': 'Rencana Menu', 'route': '/rencana'},
+      {'label': 'Rencana Menu Setelah', 'route': '/rencana_after'},
       {'label': 'Tambah Resep', 'route': '/add'},
       {'label': 'Bookmark', 'route': '/bookmark'},
       {'label': 'Profil', 'route': '/profile'},
