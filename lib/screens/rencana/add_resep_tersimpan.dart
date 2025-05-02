@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class AddReseoTersimpanScreen extends StatefulWidget {
-  const AddReseoTersimpanScreen({Key? key}) : super(key: key);
+class AddResepTersimpanScreen extends StatefulWidget {
+  const AddResepTersimpanScreen({Key? key}) : super(key: key);
 
   @override
-  _AddReseoTersimpanScreenState createState() => _AddReseoTersimpanScreenState();
+  _AddResepTersimpanScreenState createState() => _AddResepTersimpanScreenState();
 }
 
-class _AddReseoTersimpanScreenState extends State<AddReseoTersimpanScreen> {
+class _AddResepTersimpanScreenState extends State<AddResepTersimpanScreen> {
   final List<Recipe> availableRecipes = [
     Recipe(
       name: 'Pasta Carbonara',
-      imageUrl: 'https://example.com/pasta.jpg',
+      imageUrl: 'assets/images/home/pasta_carbonara.jpg',
     ),
     Recipe(
       name: 'Ayam Panggang',
-      imageUrl: 'https://example.com/ayam.jpg',
+      imageUrl: 'assets/images/home/ayamPanggang.jpg',
     ),
   ];
 

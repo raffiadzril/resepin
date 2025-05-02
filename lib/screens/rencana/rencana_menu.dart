@@ -250,7 +250,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddResepAndaScreen(), // Replace with your actual page
+                            builder: (context) => AddResepBaruScreen(), // Replace with your actual page
                           ),
                         );
                       },
@@ -263,7 +263,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddResepAndaScreen(), // Replace with your actual page
+                            builder: (context) => AddResepTersimpanScreen(), // Replace with your actual page
                           ),
                         );
                       },

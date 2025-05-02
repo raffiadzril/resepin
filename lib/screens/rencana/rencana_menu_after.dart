@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:resepin/core/constants/app_colors.dart';
-import '../../providers/theme_notifier.dart';
 import '../widgets/custom_bottom_nav.dart';
 import 'add_resep_anda.dart';
 import 'add_resep_baru.dart';
@@ -70,7 +68,6 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
   final List<int> activeWeekdays = [0, 1, 4];
 
   OverlayEntry? _overlayEntry;
-  int? _selectedDayIndex;
   final List<GlobalKey> _dayButtonKeys = [];
 
   @override
@@ -378,7 +375,7 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddResepAndaScreen(), // Replace with your actual page
+                            builder: (context) => AddResepBaruScreen(), // Replace with your actual page
                           ),
                         );
                       },
@@ -391,7 +388,7 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddResepAndaScreen(), // Replace with your actual page
+                            builder: (context) => AddResepTersimpanScreen(), // Replace with your actual page
                           ),
                         );
                       },
