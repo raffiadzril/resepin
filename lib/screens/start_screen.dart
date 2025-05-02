@@ -13,13 +13,17 @@ class StartScreen extends StatelessWidget {
       {'label': 'Tambah Resep', 'route': '/add'},
       {'label': 'Bookmark', 'route': '/bookmark'},
       {'label': 'Profil', 'route': '/profile'},
+      {'label': 'Detail Resep', 'route': '/recipe-detail'}, // Tambahkan ini
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("KELOMPOK 26 - RESEPIN"),
         centerTitle: true,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // Gunakan warna dari tema
+        backgroundColor:
+            Theme.of(
+              context,
+            ).appBarTheme.backgroundColor, // Gunakan warna dari tema
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,11 +35,15 @@ class StartScreen extends StatelessWidget {
               children: [
                 Text(
                   "Light Mode",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "Dark Mode",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -50,19 +58,28 @@ class StartScreen extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).cardColor, // Gunakan warna dari tema
+                          backgroundColor:
+                              Theme.of(
+                                context,
+                              ).cardColor, // Gunakan warna dari tema
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
                         onPressed: () {
-                          Provider.of<ThemeNotifier>(context, listen: false).toggleThemeTo(false);
+                          Provider.of<ThemeNotifier>(
+                            context,
+                            listen: false,
+                          ).toggleThemeTo(false);
                           Navigator.pushNamed(context, feature['route']);
                         },
                         child: Text(
                           "${feature['label']}",
-                          style: Theme.of(context).textTheme.bodyLarge, // Gunakan warna teks dari tema
+                          style:
+                              Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge, // Gunakan warna teks dari tema
                         ),
                       ),
                     ),
@@ -71,7 +88,10 @@ class StartScreen extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).cardColor, // Gunakan warna dari tema
+                          backgroundColor:
+                              Theme.of(
+                                context,
+                              ).cardColor, // Gunakan warna dari tema
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -79,12 +99,15 @@ class StartScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
                         onPressed: () {
-                          Provider.of<ThemeNotifier>(context, listen: false).toggleThemeTo(true);
+                          Provider.of<ThemeNotifier>(
+                            context,
+                            listen: false,
+                          ).toggleThemeTo(true);
                           Navigator.pushNamed(context, feature['route']);
                         },
                         child: Text(
                           "${feature['label']}",
-                          style: Theme.of(context).textTheme.bodyLarge
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ),

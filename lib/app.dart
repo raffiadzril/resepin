@@ -7,7 +7,6 @@ import 'screens/start_screen.dart'; // <-- tambahkan ini
 import 'screens/settings/profile_screen.dart'; // <-- tambahkan ini
 import 'screens/settings/settings_screen.dart'; // <-- tambahkan ini
 import 'screens/home/notifikation_screen.dart'; // <-- tambahkan ini
-import 'screens/rencana/rencana_menu.dart'; // <-- tambahkan ini
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,12 +21,11 @@ class MyApp extends StatelessWidget {
       theme: isDark ? AppThemes.darkTheme : AppThemes.lightTheme,
       home: const StartScreen(), // <--- ganti ke StartScreen
       routes: {
-        '/start': (context) => const StartScreen(), // <-- tambahkan ini
+        '/start': (context) => const StartScreen(),
         '/home': (context) => const HomeScreen(),
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
-        '/rencana': (context) => RencanaMenuScreen(), // <-- tambahkan ini
 
       },
     );
