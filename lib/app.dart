@@ -13,7 +13,7 @@ import 'screens/home/notifikation_screen.dart'; // <-- tambahkan ini
 import 'screens/rencana/rencana_menu.dart'; // <-- tambahkan ini
 import 'screens/recipe/recipe_detail_page.dart';
 import 'screens/rencana/rencana_menu_after.dart';
-
+import 'screens/add/tambah_resep.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/rencana': (context) => RencanaMenuScreen(), // <-- tambahkan ini
         '/recipe': (context) => const RecipeDetailPage(), // <-- tambahkan ini
         '/rencana_after': (context) => RencanaMenuAfterScreen(), // <-- tambahkan ini
+        '/add': (context) => const AddResepScreen(), // <-- tambahkan ini
       },
     );
   }

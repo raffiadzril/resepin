@@ -55,7 +55,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: isDarkMode ? Colors.white : Colors.black,
+          color: theme.textTheme.bodyLarge?.color ?? Colors.black,
         ),
       ),
       bottomNavigationBar: const CustomBottomNav(currentIndex: 1),
@@ -149,7 +149,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
         child: Text(
           daysOfWeek[index],
           style: TextStyle(
-            color: isActive ? Colors.white : theme.hintColor,
+            color: isActive ? Colors.white : theme.textTheme.bodyLarge?.color ?? Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -172,7 +172,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
             Text(
               daysOfWeek[index],
               style: TextStyle(
-                color: theme.textTheme.bodyLarge?.color,
+                color: theme.textTheme.bodyLarge?.color ?? Colors.black,
                 fontSize: 16,
               ),
             ),
@@ -183,7 +183,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.dividerColor,
-                foregroundColor: theme.textTheme.bodyLarge?.color,
+                foregroundColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -250,7 +250,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddResepBaruScreen(), // Replace with your actual page
+                            builder: (context) => AddResepTersimpanScreen(), // Replace with your actual page
                           ),
                         );
                       },
@@ -263,7 +263,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddResepTersimpanScreen(), // Replace with your actual page
+                            builder: (context) => AddResepBaruScreen(), // Replace with your actual page
                           ),
                         );
                       },
@@ -297,7 +297,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: theme.textTheme.bodyLarge?.color),
+            style: TextStyle(color: theme.textTheme.bodyLarge?.color ?? Colors.black),
           ),
         ),
       ];
