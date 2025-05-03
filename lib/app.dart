@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/rencana': (context) => RencanaMenuScreen(), // <-- tambahkan ini
-        '/recipe': (context) => const RecipeDetailPage(), // <-- tambahkan ini
+        '/recipe-detail': (context) => const RecipeDetailPage(), // <-- tambahkan ini
         '/rencana_after': (context) => RencanaMenuAfterScreen(), // <-- tambahkan ini
         '/add': (context) => const AddResepScreen(), // <-- tambahkan ini
       },
