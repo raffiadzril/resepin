@@ -11,18 +11,24 @@ class AppThemes {
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: AppColors.primary,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: AppColors.lightBox,
-    ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: AppColors.lightTextPrimary),
-      bodyMedium: TextStyle(color: AppColors.lightTextSecondary),
+      bodyLarge: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        color: AppColors.lightTextPrimary,
+      ),
+      bodyMedium: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 14,
+        color: AppColors.lightTextSecondary,
+      ),
+      titleLarge: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
     ),
-    iconTheme: const IconThemeData(
-      color: AppColors.lightTextPrimary,
-    ),
+    iconTheme: const IconThemeData(color: AppColors.lightTextPrimary),
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -34,17 +40,23 @@ class AppThemes {
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: AppColors.primary,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: AppColors.darkBox,
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        color: AppColors.darkTextPrimary,
+      ),
+      bodyMedium: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 14,
+        color: AppColors.darkTextSecondary,
+      ),
+      titleLarge: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
     ),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: AppColors.darkTextPrimary),
-    bodyMedium: TextStyle(color: AppColors.darkTextSecondary),
-  ),
-  iconTheme: const IconThemeData(
-    color: AppColors.darkTextPrimary,
-  ),
+    iconTheme: const IconThemeData(color: AppColors.darkTextPrimary),
   );
 }

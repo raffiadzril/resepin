@@ -9,7 +9,6 @@ import 'package:resepin/screens/recipe/reviews_page.dart';
 import 'package:resepin/screens/recipe/start_cooking_page.dart';
 import 'package:resepin/screens/widgets/backButtonFloating.dart';
 import 'package:resepin/screens/widgets/star_rating.dart';
-import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 
 class RecipeDetailPage extends StatefulWidget {
   const RecipeDetailPage({Key? key}) : super(key: key);
@@ -20,18 +19,37 @@ class RecipeDetailPage extends StatefulWidget {
 
 class _RecipeDetailPageState extends State<RecipeDetailPage> {
   final Recipe recipe = SampleData.getRendangRecipe();
-  int servings = 4;
+  int servings = 1;
+  bool _isExpanded = false;
+
+  List<Map<String, dynamic>> getUpdatedIngredients() {
+    return recipe.ingredients.map((ingredient) {
+      return {
+        'name': ingredient.name,
+        'quantity': ingredient.quantity * servings,
+        'unit': ingredient.unit,
+      };
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
     final theme = Theme.of(context);
-    final textColor = isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final textColor =
+        isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
     final greyColor = AppColors.grey;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(recipe.title),
+        title: Text(
+          recipe.title,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
+        ),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
@@ -49,7 +67,6 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
         ],
       ),
       floatingActionButton: const BackButtonFloating(),
-      bottomNavigationBar: const CustomBottomNav(currentIndex: 0),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,25 +74,34 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
             // Recipe Image
             Stack(
               children: [
-                Image.asset(
-                  recipe.imageUrl,
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
+                Align(
+                  alignment: Alignment.center,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      recipe.imageUrl,
                       height: 200,
-                      width: double.infinity,
-                      color: Colors.grey[800],
-                      child: const Center(
-                        child: Icon(
-                          Icons.image_not_supported,
-                          color: Colors.white,
-                          size: 50,
-                        ),
-                      ),
-                    );
-                  },
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 180,
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[800],
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.image_not_supported,
+                              color: Colors.white,
+                              size: 50,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 Positioned(
                   bottom: 16,
@@ -86,10 +112,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: IconButton(
-                      icon: const Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                      ),
+                      icon: const Icon(Icons.play_arrow, color: Colors.white),
                       onPressed: () {
                         // Play video
                       },
@@ -98,35 +121,44 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                 ),
               ],
             ),
-            
+
             // Recipe Details
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    recipe.title,
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
+                  Center(
+                    child: Text(
+                      recipe.title,
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     recipe.description,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: greyColor,
-                    ),
+                    maxLines: _isExpanded ? null : 3,
+                    overflow: _isExpanded
+                        ? TextOverflow.visible
+                        : TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 14, color: greyColor),
                   ),
                   const SizedBox(height: 8),
                   Center(
                     child: IconButton(
-                      icon: const Icon(Icons.keyboard_arrow_down),
+                      icon: Icon(
+                        _isExpanded
+                            ? Icons.keyboard_arrow_up
+                            : Icons.keyboard_arrow_down,
+                      ),
                       onPressed: () {
-                        // Scroll down
+                        setState(() {
+                          _isExpanded = !_isExpanded;
+                        });
                       },
                     ),
                   ),
@@ -150,31 +182,25 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       const Spacer(),
                       Row(
                         children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 16,
-                            color: greyColor,
-                          ),
+                          Icon(Icons.access_time, size: 16, color: greyColor),
                           const SizedBox(width: 4),
                           Text(
                             'Siap dalam ${recipe.totalTime ~/ 60} jam',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: greyColor,
-                            ),
+                            style: TextStyle(fontSize: 14, color: greyColor),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Ingredients Section Header
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: isDarkMode ? AppColors.darkBox : AppColors.lightBox2,
+                      color:
+                          isDarkMode ? AppColors.darkBox : AppColors.lightBox2,
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
@@ -200,10 +226,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                             ),
                             Text(
                               '$servings porsi',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: greyColor,
-                              ),
+                              style: TextStyle(fontSize: 14, color: greyColor),
                             ),
                           ],
                         ),
@@ -224,11 +247,17 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                   color: AppColors.primary,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.remove, size: 16, color: Colors.white),
+                                child: const Icon(
+                                  Icons.remove,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                              ),
                               child: Text(
                                 '$servings',
                                 style: TextStyle(
@@ -250,7 +279,11 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                                   color: AppColors.primary,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.add, size: 16, color: Colors.white),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ],
@@ -258,16 +291,17 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       ],
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Full Ingredients List
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: recipe.ingredients.length,
                     itemBuilder: (context, index) {
-                      final ingredient = recipe.ingredients[index];
+                      final updatedIngredients = getUpdatedIngredients();
+                      final ingredient = updatedIngredients[index];
                       return Container(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         decoration: BoxDecoration(
@@ -282,14 +316,11 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              ingredient.name,
-                              style: TextStyle(
-                                color: textColor,
-                                fontSize: 16,
-                              ),
+                              ingredient['name'],
+                              style: TextStyle(color: textColor, fontSize: 16),
                             ),
                             Text(
-                              '${ingredient.quantity} ${ingredient.unit}',
+                              '${ingredient['quantity']} ${ingredient['unit']}',
                               style: TextStyle(
                                 color: textColor,
                                 fontWeight: FontWeight.w500,
@@ -300,9 +331,9 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       );
                     },
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Start Cooking Button
                   ElevatedButton(
                     onPressed: () {
@@ -328,9 +359,9 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Navigation Arrow
                   Center(
                     child: IconButton(

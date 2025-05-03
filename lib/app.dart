@@ -6,14 +6,15 @@ import 'package:resepin/screens/rencana/add_resep_anda.dart';
 import 'core/constants/app_themes.dart';
 import 'providers/theme_notifier.dart';
 import 'screens/home/home_screen.dart';
-import 'screens/start_screen.dart'; // <-- tambahkan ini
-import 'screens/settings/profile_screen.dart'; // <-- tambahkan ini
-import 'screens/settings/settings_screen.dart'; // <-- tambahkan ini
-import 'screens/home/notifikation_screen.dart'; // <-- tambahkan ini
-import 'screens/rencana/rencana_menu.dart'; // <-- tambahkan ini
+import 'screens/start_screen.dart';
+import 'screens/settings/profile_screen.dart';
+import 'screens/settings/settings_screen.dart';
+import 'screens/home/notifikation_screen.dart';
+import 'screens/rencana/rencana_menu.dart';
 import 'screens/recipe/recipe_detail_page.dart';
 import 'screens/rencana/rencana_menu_after.dart';
 import 'screens/add/tambah_resep.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,17 +26,17 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Clean App',
       debugShowCheckedModeBanner: false,
       theme: isDark ? AppThemes.darkTheme : AppThemes.lightTheme,
-      home: const StartScreen(), // <--- ganti ke StartScreen
+      home: const StartScreen(),
       routes: {
         '/start': (context) => const StartScreen(),
         '/home': (context) => const HomeScreen(),
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
-        '/rencana': (context) => RencanaMenuScreen(), // <-- tambahkan ini
-        '/recipe-detail': (context) => const RecipeDetailPage(), // <-- tambahkan ini
-        '/rencana_after': (context) => RencanaMenuAfterScreen(), // <-- tambahkan ini
-        '/add': (context) => const AddResepScreen(), // <-- tambahkan ini
+        '/rencana': (context) => RencanaMenuScreen(),
+        '/recipe-detail': (context) => const RecipeDetailPage(),
+        '/rencana_after': (context) => RencanaMenuAfterScreen(),
+        '/add': (context) => const AddResepScreen(),
       },
     );
   }
