@@ -10,10 +10,7 @@ import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 class ReviewsPage extends StatefulWidget {
   final Recipe recipe;
 
-  const ReviewsPage({
-    Key? key,
-    required this.recipe,
-  }) : super(key: key);
+  const ReviewsPage({Key? key, required this.recipe}) : super(key: key);
 
   @override
   State<ReviewsPage> createState() => _ReviewsPageState();
@@ -21,17 +18,29 @@ class ReviewsPage extends StatefulWidget {
 
 class _ReviewsPageState extends State<ReviewsPage> {
   double userRating = 0;
+  bool _showAllComments = false; // State untuk mengontrol jumlah komentar
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
     final theme = Theme.of(context);
-    final textColor = isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final textColor =
+        isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
     final greyColor = AppColors.grey;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.title),
+        title: Text(
+          widget.recipe.title,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color:
+                isDarkMode
+                    ? Colors.white
+                    : Colors.black, // Warna berdasarkan tema
+          ),
+        ),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
@@ -64,12 +73,18 @@ class _ReviewsPageState extends State<ReviewsPage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Reviews List
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.recipe.reviews.length,
+              itemCount:
+                  _showAllComments
+                      ? widget
+                          .recipe
+                          .reviews
+                          .length // Tampilkan semua komentar jika diperluas
+                      : 2, // Tampilkan hanya 2 komentar secara default
               itemBuilder: (context, index) {
                 final review = widget.recipe.reviews[index];
                 return Container(
@@ -97,12 +112,16 @@ class _ReviewsPageState extends State<ReviewsPage> {
                               CircleAvatar(
                                 radius: 16,
                                 backgroundImage: AssetImage(review.userImage),
-                                onBackgroundImageError: (exception, stackTrace) {
+                                onBackgroundImageError: (
+                                  exception,
+                                  stackTrace,
+                                ) {
                                   // Handle error
                                 },
-                                child: review.userImage.isEmpty
-                                    ? const Icon(Icons.person)
-                                    : null,
+                                child:
+                                    review.userImage.isEmpty
+                                        ? const Icon(Icons.person)
+                                        : null,
                               ),
                               const SizedBox(width: 8),
                               Column(
@@ -126,28 +145,45 @@ class _ReviewsPageState extends State<ReviewsPage> {
                               ),
                             ],
                           ),
-                          StarRating(
-                            rating: review.rating,
-                            size: 14,
-                          ),
+                          StarRating(rating: review.rating, size: 14),
                         ],
                       ),
                       const SizedBox(height: 8),
                       Text(
                         review.comment,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: textColor,
-                        ),
+                        style: TextStyle(fontSize: 14, color: textColor),
                       ),
                     ],
                   ),
                 );
               },
             ),
-            
+
+            const SizedBox(height: 16),
+
+            // Show More or Less Button
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    _showAllComments = !_showAllComments; // Toggle state
+                  });
+                },
+                child: Text(
+                  _showAllComments
+                      ? 'Sembunyikan Komentar'
+                      : 'Lihat Semua Komentar',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ),
+            ),
+
             const SizedBox(height: 24),
-            
+
             // Rating Section
             Container(
               padding: const EdgeInsets.all(16),
@@ -185,7 +221,9 @@ class _ReviewsPageState extends State<ReviewsPage> {
                               });
                             },
                             child: Icon(
-                              index < userRating ? Icons.star : Icons.star_border,
+                              index < userRating
+                                  ? Icons.star
+                                  : Icons.star_border,
                               color: AppColors.orange,
                               size: 24,
                             ),
@@ -195,12 +233,16 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Comment Input
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
-                      color: isDarkMode ? AppColors.darkBox : AppColors.lightBox,
+                      color:
+                          isDarkMode ? AppColors.darkBox : AppColors.lightBox,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -213,91 +255,6 @@ class _ReviewsPageState extends State<ReviewsPage> {
                         Icon(Icons.chevron_right, color: greyColor),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            
-            const SizedBox(height: 24),
-            
-            // Chef Section
-            Text(
-              'Pembuat Resep',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: textColor,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isDarkMode ? AppColors.darkBox : AppColors.lightBox2,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 24,
-                        backgroundImage: AssetImage(widget.recipe.chef.image),
-                        onBackgroundImageError: (exception, stackTrace) {
-                          // Handle error
-                        },
-                        child: widget.recipe.chef.image.isEmpty
-                            ? const Icon(Icons.person)
-                            : null,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.recipe.chef.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: textColor,
-                            ),
-                          ),
-                          Text(
-                            widget.recipe.chef.title,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: greyColor,
-                            ),
-                          ),
-                          Text(
-                            widget.recipe.chef.recipeCount.toString(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: greyColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      textStyle: const TextStyle(fontSize: 14),
-                    ),
-                    child: const Text('Ikuti'),
                   ),
                 ],
               ),

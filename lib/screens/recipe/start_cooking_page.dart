@@ -9,10 +9,7 @@ import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 class StartCookingPage extends StatefulWidget {
   final Recipe recipe;
 
-  const StartCookingPage({
-    Key? key,
-    required this.recipe,
-  }) : super(key: key);
+  const StartCookingPage({Key? key, required this.recipe}) : super(key: key);
 
   @override
   State<StartCookingPage> createState() => _StartCookingPageState();
@@ -20,16 +17,17 @@ class StartCookingPage extends StatefulWidget {
 
 class _StartCookingPageState extends State<StartCookingPage> {
   int currentStep = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
     final theme = Theme.of(context);
-    final textColor = isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final textColor =
+        isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
     final greyColor = AppColors.grey;
-    
+
     final step = widget.recipe.steps[currentStep];
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.recipe.title),
@@ -50,7 +48,6 @@ class _StartCookingPageState extends State<StartCookingPage> {
         ],
       ),
       floatingActionButton: const BackButtonFloating(),
-      bottomNavigationBar: const CustomBottomNav(currentIndex: 0),
       body: Column(
         children: [
           // Progress Indicator
@@ -60,7 +57,7 @@ class _StartCookingPageState extends State<StartCookingPage> {
             color: AppColors.primary,
             minHeight: 6,
           ),
-          
+
           // Step Content
           Expanded(
             child: Padding(
@@ -72,7 +69,10 @@ class _StartCookingPageState extends State<StartCookingPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(16),
@@ -88,10 +88,7 @@ class _StartCookingPageState extends State<StartCookingPage> {
                       ),
                       Text(
                         'Waktu: ${widget.recipe.totalTime ~/ 60} jam',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: greyColor,
-                        ),
+                        style: TextStyle(fontSize: 14, color: greyColor),
                       ),
                     ],
                   ),
@@ -99,7 +96,8 @@ class _StartCookingPageState extends State<StartCookingPage> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: isDarkMode ? AppColors.darkBox : AppColors.lightBox2,
+                      color:
+                          isDarkMode ? AppColors.darkBox : AppColors.lightBox2,
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
@@ -167,92 +165,111 @@ class _StartCookingPageState extends State<StartCookingPage> {
                         backgroundColor: theme.scaffoldBackgroundColor,
                         isScrollControlled: true,
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(16),
+                          ),
                         ),
-                        builder: (context) => DraggableScrollableSheet(
-                          initialChildSize: 0.6,
-                          minChildSize: 0.3,
-                          maxChildSize: 0.9,
-                          expand: false,
-                          builder: (context, scrollController) {
-                            return Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Container(
-                                      width: 40,
-                                      height: 4,
-                                      margin: const EdgeInsets.only(bottom: 16),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[600],
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Bahan-bahan',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    'Untuk ${widget.recipe.servings} porsi',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: greyColor,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Expanded(
-                                    child: ListView.builder(
-                                      controller: scrollController,
-                                      itemCount: widget.recipe.ingredients.length,
-                                      itemBuilder: (context, index) {
-                                        final ingredient = widget.recipe.ingredients[index];
-                                        return Container(
-                                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        builder:
+                            (context) => DraggableScrollableSheet(
+                              initialChildSize: 0.6,
+                              minChildSize: 0.3,
+                              maxChildSize: 0.9,
+                              expand: false,
+                              builder: (context, scrollController) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Container(
+                                          width: 40,
+                                          height: 4,
+                                          margin: const EdgeInsets.only(
+                                            bottom: 16,
+                                          ),
                                           decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: AppColors.grey.withOpacity(0.2),
-                                                width: 1,
-                                              ),
+                                            color: Colors.grey[600],
+                                            borderRadius: BorderRadius.circular(
+                                              2,
                                             ),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                ingredient.name,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: textColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Bahan-bahan',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: textColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Untuk ${widget.recipe.servings} porsi',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: greyColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Expanded(
+                                        child: ListView.builder(
+                                          controller: scrollController,
+                                          itemCount:
+                                              widget.recipe.ingredients.length,
+                                          itemBuilder: (context, index) {
+                                            final ingredient =
+                                                widget
+                                                    .recipe
+                                                    .ingredients[index];
+                                            return Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 12,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                border: Border(
+                                                  bottom: BorderSide(
+                                                    color: AppColors.grey
+                                                        .withOpacity(0.2),
+                                                    width: 1,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                '${ingredient.quantity} ${ingredient.unit}',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: textColor,
-                                                ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    ingredient.name,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: textColor,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${ingredient.quantity} ${ingredient.unit}',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: textColor,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                                );
+                              },
+                            ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -264,12 +281,11 @@ class _StartCookingPageState extends State<StartCookingPage> {
                     ),
                     child: const Text('Lihat Bahan'),
                   ),
-                  const SizedBox(height: 16),
                 ],
               ),
             ),
           ),
-          
+
           // Navigation Buttons
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -304,19 +320,22 @@ class _StartCookingPageState extends State<StartCookingPage> {
                         // Last step, show completion dialog
                         showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Selamat!'),
-                            content: const Text('Anda telah menyelesaikan resep ini.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Kembali ke Resep'),
+                          builder:
+                              (context) => AlertDialog(
+                                title: const Text('Selamat!'),
+                                content: const Text(
+                                  'Anda telah menyelesaikan resep ini.',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Kembali ke Resep'),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
                         );
                       }
                     },

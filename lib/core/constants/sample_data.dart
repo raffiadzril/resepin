@@ -67,23 +67,39 @@ class SampleData {
           date: '12 April 2023',
           rating: 5.0,
           comment:
-              'Saya menyukai resep rendang ini hasilnya sangat lezat meskipun membutuhkan waktu yang lama untuk memasaknya. Rempahnya sangat terasa!',
+          'Saya menyukai resep rendang ini hasilnya sangat lezat meskipun membutuhkan waktu yang lama untuk memasaknya. Rempahnya sangat terasa!',
         ),
         Review(
-          userName: 'Nanang Apriyadi',
-          userImage: 'images/users/user1.png',
-          date: '12 April 2023',
-          rating: 5.0,
+          userName: 'Siti Nurhaliza',
+          userImage: 'images/users/user2.png',
+          date: '15 April 2023',
+          rating: 4.5,
           comment:
-              'Saya menyukai resep rendang ini hasilnya sangat lezat meskipun membutuhkan waktu yang lama untuk memasaknya. Rempahnya sangat terasa!',
+          'Resep ini sangat membantu! Rendangnya enak sekali, tapi saya menambahkan sedikit gula untuk menyeimbangkan rasa.',
         ),
         Review(
-          userName: 'Nanang Apriyadi',
-          userImage: 'images/users/user1.png',
-          date: '12 April 2023',
+          userName: 'Ahmad Fauzi',
+          userImage: 'images/users/user3.png',
+          date: '18 April 2023',
           rating: 4.0,
           comment:
-              'Saya menyukai resep rendang ini hasilnya sangat lezat meskipun membutuhkan waktu yang lama untuk memasaknya. Rempahnya sangat terasa!',
+          'Rendangnya enak, tapi proses memasaknya cukup lama. Saya akan mencoba lagi dengan daging yang lebih empuk.',
+        ),
+        Review(
+          userName: 'Dewi Lestari',
+          userImage: 'images/users/user4.png',
+          date: '20 April 2023',
+          rating: 5.0,
+          comment:
+          'Resep ini luar biasa! Semua keluarga saya menyukainya. Saya mengikuti langkah-langkahnya dengan teliti dan hasilnya sempurna.',
+        ),
+        Review(
+          userName: 'Budi Santoso',
+          userImage: 'images/users/user5.png',
+          date: '22 April 2023',
+          rating: 4.8,
+          comment:
+          'Rendangnya sangat lezat dan kaya rasa. Saya menambahkan sedikit santan ekstra untuk membuatnya lebih creamy.',
         ),
       ],
       chef: Chef(
