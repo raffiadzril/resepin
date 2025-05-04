@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:resepin/screens/login/newPassword.dart'; // Make sure this import exists
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/screens/login/newPassword.dart'; 
 
 class EmailVerify extends StatefulWidget {
   final String email;
@@ -73,7 +76,19 @@ class _EmailVerifyState extends State<EmailVerify> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Harap lengkapi kode verifikasi')),
+        SnackBar(
+          content: Text(
+            'Harap lengkapi kode verifikasi',
+            style: TextStyle(
+              color: Provider.of<ThemeNotifier>(context, listen: false).isDarkMode
+                  ? AppColors.darkTextPrimary
+                  : AppColors.lightTextPrimary,
+            ),
+          ),
+          backgroundColor: Provider.of<ThemeNotifier>(context, listen: false).isDarkMode
+              ? AppColors.darkBox
+              : AppColors.lightBox,
+        ),
       );
     }
   }
@@ -90,21 +105,25 @@ class _EmailVerifyState extends State<EmailVerify> {
     }
   }
 
-  Widget _buildDigitBox(int index) {
+  Widget _buildDigitBox(int index, BuildContext context) {
+    final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
+    
     return Container(
       width: 60,
       height: 70,
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDarkMode ? AppColors.darkBox : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: code[index].isEmpty ? Colors.grey.shade300 : const Color(0xFFE6303B),
+          color: code[index].isEmpty 
+              ? isDarkMode ? Colors.grey.shade700 : Colors.grey.shade300 
+              : AppColors.primary,
           width: 2,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withOpacity(isDarkMode ? 0.1 : 0.2),
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -114,23 +133,23 @@ class _EmailVerifyState extends State<EmailVerify> {
       child: Center(
         child: Text(
           code[index],
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: isDarkMode ? AppColors.darkTextPrimary : Colors.black87,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildKeypadButton(String label, {VoidCallback? onTap}) {
+  Widget _buildKeypadButton(String label, {required VoidCallback onTap}) {
     return Container(
       width: 72,
       height: 72,
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: const Color(0xFFE6303B),
+        color: AppColors.primary,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -167,12 +186,28 @@ class _EmailVerifyState extends State<EmailVerify> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
+    final theme = Theme.of(context);
+    final textColor = isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final greyColor = isDarkMode ? Colors.grey.shade400 : Colors.grey.shade700;
+    
     final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
     final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
     final isCodeComplete = code.every((digit) => digit.isNotEmpty);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDarkMode ? AppColors.darkBackground : Colors.white,
+      appBar: AppBar(
+        backgroundColor: isDarkMode ? AppColors.darkBackground : Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: isDarkMode ? Colors.white : Colors.black,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -182,27 +217,27 @@ class _EmailVerifyState extends State<EmailVerify> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Verifikasi Email',
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: textColor,
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'Masukkan kode verifikasi yang kami kirim ke:\n${widget.email}',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
-                    color: Colors.black54,
+                    color: greyColor,
                   ),
                 ),
                 const SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(4, (index) => _buildDigitBox(index)),
+                  children: List.generate(4, (index) => _buildDigitBox(index, context)),
                 ),
                 const SizedBox(height: 24),
                 Row(
@@ -211,7 +246,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                     Text(
                       'Tidak menerima kode? ',
                       style: TextStyle(
-                        color: Colors.grey[700],
+                        color: greyColor,
                         fontSize: 14,
                       ),
                     ),
@@ -221,8 +256,8 @@ class _EmailVerifyState extends State<EmailVerify> {
                         'Kirim Ulang',
                         style: TextStyle(
                           color: _isResendEnabled 
-                              ? const Color(0xFFE6303B)
-                              : Colors.grey,
+                              ? AppColors.primary
+                              : greyColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
@@ -233,8 +268,8 @@ class _EmailVerifyState extends State<EmailVerify> {
                 const SizedBox(height: 8),
                 Text(
                   _isResendEnabled ? '' : '$minutes:$seconds',
-                  style: const TextStyle(
-                    color: Color(0xFFE6303B),
+                  style: TextStyle(
+                    color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -244,7 +279,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                   child: ElevatedButton(
                     onPressed: isCodeComplete ? handleSubmit : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE6303B),
+                      backgroundColor: AppColors.primary,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -264,8 +299,15 @@ class _EmailVerifyState extends State<EmailVerify> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[50],
+                    color: isDarkMode ? AppColors.darkBox : Colors.grey[50],
                     borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(isDarkMode ? 0.1 : 0.2),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: [

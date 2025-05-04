@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/providers/theme_notifier.dart';
 import 'package:resepin/screens/login/emailVerift.dart'; 
-
-
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -36,9 +37,19 @@ class ForgotPasswordState extends State<ForgotPassword> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Masukkan alamat email yang valid'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text(
+            'Masukkan alamat email yang valid',
+            style: TextStyle(
+              color: Provider.of<ThemeNotifier>(context, listen: false).isDarkMode
+                  ? AppColors.darkTextPrimary
+                  : AppColors.lightTextPrimary,
+            ),
+          ),
+          backgroundColor: Provider.of<ThemeNotifier>(context, listen: false).isDarkMode
+              ? AppColors.darkBox
+              : AppColors.lightBox,
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -46,17 +57,35 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
+    final textColor = isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final secondaryTextColor = isDarkMode ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
+    final backgroundColor = isDarkMode ? AppColors.darkBackground : AppColors.lightBackground;
+    final containerColor = isDarkMode ? AppColors.darkBox : AppColors.lightBox;
+    final borderColor = isDarkMode ? Colors.grey.shade700 : const Color(0xFFD9D9D9);
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: isDarkMode ? AppColors.darkBackground : Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           constraints: const BoxConstraints.expand(),
-          color: const Color(0xFFFFFFFF),
+          color: backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Container(
-                  color: const Color(0xFFF9FAFB),
+                  color: isDarkMode ? AppColors.darkBackground : const Color(0xFFF9FAFB),
                   width: double.infinity,
                   height: double.infinity,
                   child: SingleChildScrollView(
@@ -66,11 +95,11 @@ class ForgotPasswordState extends State<ForgotPassword> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(top: 83, bottom: 5, left: 20, right: 54),
-                            child: const Text(
+                            margin: const EdgeInsets.only(top: 40, bottom: 5, left: 20, right: 54),
+                            child: Text(
                               "Lupa kata sandi",
                               style: TextStyle(
-                                color: Color(0xFF262626),
+                                color: textColor,
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -78,10 +107,10 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(bottom: 16, left: 21),
-                            child: const Text(
-                              "Daftar resepin untuk mencari dan berkreasi dengan resep-resep yang enak.",
+                            child: Text(
+                              "Masukkan email Anda untuk menerima kode verifikasi",
                               style: TextStyle(
-                                color: Color(0xFF706D6D),
+                                color: secondaryTextColor,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -89,10 +118,10 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(bottom: 6, left: 20),
-                            child: const Text(
+                            child: Text(
                               "Alamat e-mail",
                               style: TextStyle(
-                                color: Color(0xFF262626),
+                                color: textColor,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -101,11 +130,11 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: const Color(0xFFD9D9D9),
+                                color: borderColor,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(11),
-                              color: const Color(0xFFFFFFFF),
+                              color: containerColor,
                             ),
                             margin: const EdgeInsets.only(bottom: 35, left: 21, right: 21),
                             height: 52,
@@ -113,10 +142,12 @@ class ForgotPasswordState extends State<ForgotPassword> {
                             child: TextField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
+                              style: TextStyle(color: textColor),
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                                 hintText: 'contoh@email.com',
+                                hintStyle: TextStyle(color: secondaryTextColor),
                               ),
                               onChanged: _validateEmail,
                             ),
@@ -125,7 +156,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                             child: ElevatedButton(
                               onPressed: _navigateToEmailVerify,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFE6303B),
+                                backgroundColor: AppColors.primary,
                                 padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
