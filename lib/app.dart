@@ -14,6 +14,7 @@ import 'screens/rencana/rencana_menu.dart';
 import 'screens/recipe/recipe_detail_page.dart';
 import 'screens/rencana/rencana_menu_after.dart';
 import 'screens/add/tambah_resep.dart';
+import 'screens/home/trending_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/start': (context) => const StartScreen(),
         '/home': (context) => const HomeScreen(),
+        '/trending': (context) => const TrendingScreen(),
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
