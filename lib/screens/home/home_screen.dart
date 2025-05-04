@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 56, // Adjust the height of the AppBar
-        title: const SearchBarWidget(),
+        title: const SearchBarWidget(hintText: "cari resep..."),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
@@ -73,16 +73,19 @@ class HomeScreen extends StatelessWidget {
                       "title": "Cari Resep Berdasarkan Bahan",
                       "image": "images/home/refrigerator.png",
                       "color": AppColors.primary,
+                      "route": "/cari-resep-bahan",
                     },
                     {
                       "title": "Trending Resep",
                       "image": "images/home/makanan.png",
                       "color": AppColors.orange,
+                      "route": "/trending",
                     },
                     {
-                      "title": "Resep Teraru",
+                      "title": "Resep Terbaru",
                       "image": "images/home/makanan.png",
                       "color": AppColors.primary,
+                      "route": "/resep-baru",
                     },
                   ];
                   final item = items[index];
@@ -92,6 +95,7 @@ class HomeScreen extends StatelessWidget {
                     item["image"] as String,
                     AppColors.darkTextPrimary,
                     item["color"] as Color,
+                    item["route"] as String,
                   );
                 },
               ),
@@ -119,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                     chef: "Chef Juna",
                     time: "8 jam",
                     imagePath: "images/home/rendangLebaran.png",
-                    rating: 4.9, // ✅ Tambahkan rating
+                    rating: 4.9,
                     textColor: textColor,
                     greyColor: greyColor,
                   ),
@@ -150,10 +154,15 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-              Text(
-                "Lihat Selengkapnya",
-                style: TextStyle(color: AppColors.primary),
-              ),
+                GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/trending');
+                },
+                child: Text(
+                  "Lihat Selengkapnya",
+                  style: TextStyle(color: AppColors.primary),
+                ),
+                ),
               ],
             ),
             Row(
@@ -228,9 +237,14 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                Text(
+                GestureDetector(
+                  onTap: () {
+                  Navigator.of(context).pushNamed('/resep-baru');
+                  },
+                  child: Text(
                   "Lihat Selengkapnya",
                   style: TextStyle(color: AppColors.primary),
+                  ),
                 ),
                 ],
               ),
@@ -253,37 +267,44 @@ class HomeScreen extends StatelessWidget {
     String imagePath,
     Color textColor,
     Color gradienColor,
+    String route, // Added route parameter
   ) {
-    return Container(
-      margin: const EdgeInsets.only(right: 12),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(imagePath),
-          fit: BoxFit.cover,
-          onError: (_, __) {},
-        ),
-      ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(route);
+      },
       child: Container(
-        padding: const EdgeInsets.all(16),
-        alignment: Alignment.bottomLeft,
+        margin: const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(33),
-          gradient: LinearGradient(
-            colors: [
-              gradienColor.withOpacity(0.8),
-              gradienColor.withOpacity(0.4),
-              Colors.transparent,
-            ],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+            onError: (_, __) {},
           ),
         ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          alignment: Alignment.bottomLeft,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(33),
+            gradient: LinearGradient(
+              colors: [
+                gradienColor.withOpacity(0.8),
+                gradienColor.withOpacity(0.4),
+                Colors.transparent,
+              ],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
         ),
       ),

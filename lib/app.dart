@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:resepin/screens/home/cariResepBahan_screen.dart';
+import 'package:resepin/screens/home/resepBaru_screen.dart';
 import 'package:resepin/screens/login/emailVerift.dart';
 import 'package:resepin/screens/login/forgotPassword.dart';
 import 'package:resepin/screens/login/loadingScreen.dart';
@@ -30,14 +32,16 @@ class MyApp extends StatelessWidget {
     final isDark = context.watch<ThemeNotifier>().isDarkMode;
 
     return MaterialApp(
-      title: 'Flutter Clean App',
+      title: 'Flutter Resepin Apps',
       debugShowCheckedModeBanner: false,
       theme: isDark ? AppThemes.darkTheme : AppThemes.lightTheme,
       home: const StartScreen(),
       routes: {
         '/start': (context) => const StartScreen(),
         '/home': (context) => const HomeScreen(),
+        '/cari-resep-bahan': (context) => const CariresepbahanScreen(),
         '/trending': (context) => const TrendingScreen(),
+        '/resep-baru': (context) => const ResepBaruScreen(),
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
@@ -54,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/loading2': (context) => const LoadingScreen2(),
         '/loading3': (context) => const LoadingScreen3(),
         '/register': (context) => const RegisterScreen(),
+
       },
     );
   }
