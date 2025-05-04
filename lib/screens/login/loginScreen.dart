@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/providers/theme_notifier.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,38 +17,56 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
+    final textColor = isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final secondaryTextColor = isDarkMode ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
+    final backgroundColor = isDarkMode ? AppColors.darkBackground : AppColors.lightBackground;
+    final containerColor = isDarkMode ? AppColors.darkBox : AppColors.lightBox;
+    final borderColor = isDarkMode ? Colors.grey.shade700 : Colors.grey.shade300;
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: isDarkMode ? AppColors.darkBackground : Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: SafeArea(
         child: Container(
-          color: const Color(0xFFFFFFFF),
+          color: backgroundColor,
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Masuk ke akun anda.",
                     style: TextStyle(
-                      color: Color(0xFF262626),
+                      color: textColor,
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 5),
-                  const Text(
+                  Text(
                     "Tolong masuk ke akun anda",
                     style: TextStyle(
-                      color: Color(0xFF706D6D),
+                      color: secondaryTextColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 32),
-                  const Text(
+                  Text(
                     "Alamat e-mail",
                     style: TextStyle(
-                      color: Color(0xFF262626),
+                      color: textColor,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -55,20 +74,27 @@ class LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 8),
                   TextField(
                     controller: emailController,
+                    style: TextStyle(color: textColor),
                     decoration: InputDecoration(
                       hintText: "Masukkan e-mail",
+                      hintStyle: TextStyle(color: secondaryTextColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(11),
+                        borderSide: BorderSide(color: borderColor),
                       ),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: containerColor,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
+                  Text(
                     "Kata sandi",
                     style: TextStyle(
-                      color: Color(0xFF262626),
+                      color: textColor,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -77,22 +103,30 @@ class LoginScreenState extends State<LoginScreen> {
                   TextField(
                     controller: passwordController,
                     obscureText: obscureText,
+                    style: TextStyle(color: textColor),
                     decoration: InputDecoration(
                       hintText: "Masukkan kata sandi",
+                      hintStyle: TextStyle(color: secondaryTextColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(11),
+                        borderSide: BorderSide(color: borderColor),
                       ),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: containerColor,
                       suffixIcon: IconButton(
                         icon: Icon(
                           obscureText ? Icons.visibility_off : Icons.visibility,
+                          color: secondaryTextColor,
                         ),
                         onPressed: () {
                           setState(() {
                             obscureText = !obscureText;
                           });
                         },
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
                       ),
                     ),
                   ),
@@ -103,10 +137,10 @@ class LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         Navigator.pushNamed(context, '/forgot-password');
                       },
-                      child: const Text(
-                        "Forgot Password?",
+                      child: Text(
+                        "Lupa Password?",
                         style: TextStyle(
-                          color: Color(0xFFE6303B),
+                          color: AppColors.primary,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -117,8 +151,11 @@ class LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE6303B),
-                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 12),
+                        backgroundColor: AppColors.primary,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 100,
+                          vertical: 12,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
@@ -143,10 +180,10 @@ class LoginScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, '/register');
                       },
                       child: RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           text: "Tidak memiliki akun? ",
                           style: TextStyle(
-                            color: Color(0xFF706D6D),
+                            color: secondaryTextColor,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -154,10 +191,10 @@ class LoginScreenState extends State<LoginScreen> {
                             TextSpan(
                               text: "Daftar di sini.",
                               style: TextStyle(
-                                color: Color(0xFFE6303B),
+                                color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
