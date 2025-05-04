@@ -15,109 +15,107 @@ class StartScreen extends StatelessWidget {
       {'label': 'Tambah Resep', 'route': '/add'},
       {'label': 'Bookmark', 'route': '/bookmark'},
       {'label': 'Profil', 'route': '/profile'},
-      {'label': 'Detail Resep', 'route': '/recipe-detail'}, // Tambahkan ini
+      {'label': 'Detail Resep', 'route': '/recipe-detail'},
+      {'label': 'New Password Succeed', 'route': '/new-password-succeed'},
+      {'label': 'Email Verification', 'route': '/email-verification'},
+      {'label': 'Forgot Password', 'route': '/forgot-password'},
+      {'label': 'Loading Screen', 'route': '/loading'},
+      {'label': 'Loading Screen 1', 'route': '/loading1'},
+      {'label': 'Loading Screen 2', 'route': '/loading2'},
+      {'label': 'Loading Screen 3', 'route': '/loading3'},
+      {'label': 'New Password', 'route': '/new-password'},
+      {'label': 'Register', 'route': '/register'},
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("KELOMPOK 26 - RESEPIN"),
         centerTitle: true,
-        backgroundColor:
-            Theme.of(
-              context,
-            ).appBarTheme.backgroundColor, // Gunakan warna dari tema
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // Header kolom
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Light Mode",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Dark Mode",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            // Daftar fitur
-            ...features.map((feature) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    // Tombol Light Mode
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(
-                                context,
-                              ).cardColor, // Gunakan warna dari tema
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Header kolom
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Light Mode",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Dark Mode",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Daftar tombol
+              ...features.map(
+                (feature) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      // Tombol Light Mode
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).cardColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                        ),
-                        onPressed: () {
-                          Provider.of<ThemeNotifier>(
-                            context,
-                            listen: false,
-                          ).toggleThemeTo(false);
-                          Navigator.pushNamed(context, feature['route']);
-                        },
-                        child: Text(
-                          "${feature['label']}",
-                          style:
-                              Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge, // Gunakan warna teks dari tema
+                          onPressed: () {
+                            Provider.of<ThemeNotifier>(context, listen: false)
+                                .toggleThemeTo(false);
+                            Navigator.pushNamed(context, feature['route']);
+                          },
+                          child: Text(
+                            "${feature['label']}",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    // Tombol Dark Mode
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(
-                                context,
-                              ).cardColor, // Gunakan warna dari tema
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      const SizedBox(width: 16),
+                      // Tombol Dark Mode
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).cardColor,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                        ),
-                        onPressed: () {
-                          Provider.of<ThemeNotifier>(
-                            context,
-                            listen: false,
-                          ).toggleThemeTo(true);
-                          Navigator.pushNamed(context, feature['route']);
-                        },
-                        child: Text(
-                          "${feature['label']}",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          onPressed: () {
+                            Provider.of<ThemeNotifier>(context, listen: false)
+                                .toggleThemeTo(true);
+                            Navigator.pushNamed(context, feature['route']);
+                          },
+                          child: Text(
+                            "${feature['label']}",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              );
-            }).toList(),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

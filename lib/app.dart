@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/screens/login/emailVerift.dart';
+import 'package:resepin/screens/login/forgotPassword.dart';
+import 'package:resepin/screens/login/loadingScreen.dart';
+import 'package:resepin/screens/login/loadingScreen1.dart';
+import 'package:resepin/screens/login/loadingScreen2.dart';
+import 'package:resepin/screens/login/loadingScreen3.dart';
+import 'package:resepin/screens/login/newPassword.dart';
+import 'package:resepin/screens/login/registerScreen.dart';
 import 'package:resepin/screens/recipe/cooking_steps_page.dart';
 import 'package:resepin/screens/rencana/add_resep_anda.dart';
 import 'core/constants/app_themes.dart';
@@ -15,6 +23,7 @@ import 'screens/recipe/recipe_detail_page.dart';
 import 'screens/rencana/rencana_menu_after.dart';
 import 'screens/add/tambah_resep.dart';
 import 'screens/home/trending_screen.dart';
+import 'screens/login/newPasswordSucceed.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -39,6 +48,15 @@ class MyApp extends StatelessWidget {
         '/recipe-detail': (context) => const RecipeDetailPage(),
         '/rencana_after': (context) => RencanaMenuAfterScreen(),
         '/add': (context) => const AddResepScreen(),
+        '/new-password-succeed': (context) => const NewPasswordSucceed(),
+        '/new-password': (context) => const NewPassword(),
+        '/email-verification': (context) => const EmailVerify(email: ''),
+        '/forgot-password': (context) => const ForgotPassword(),
+        '/loading': (context) => const LoadingScreen(),
+        '/loading1': (context) => const LoadingScreen1(),
+        '/loading2': (context) => const LoadingScreen2(),
+        '/loading3': (context) => const LoadingScreen3(),
+        '/register': (context) => const RegisterScreen(),
       },
     );
   }

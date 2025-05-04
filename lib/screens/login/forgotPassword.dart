@@ -5,21 +5,7 @@ import 'package:resepin/core/constants/recipe_model.dart';
 import 'package:resepin/providers/theme_notifier.dart';
 import 'package:resepin/screens/login/emailVerift.dart'; 
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ForgotPassword(),
-      routes: {
-        '/emailVerify': (context) => EmailVerify(email:'',), // Add route for email verification
-      },
-    );
-  }
-}
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});

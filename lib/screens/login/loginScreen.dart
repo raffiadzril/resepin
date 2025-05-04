@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:resepin/core/constants/app_colors.dart';
-import 'package:resepin/core/constants/recipe_model.dart';
-import 'package:resepin/providers/theme_notifier.dart';
-import 'package:resepin/screens/login/newPasswordSucceed.dart';
-import 'package:resepin/screens/login/registerScreen.dart';
-import 'package:resepin/screens/login/forgotPassword.dart';
+import 'newPasswordSucceed.dart';
+import 'registerScreen.dart';
+import 'forgotPassword.dart';
+
 
 
 class LoginScreen extends StatefulWidget {
@@ -107,8 +104,7 @@ class LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ForgotPassword()));
+                        Navigator.pushNamed(context, '/forgot-password');
                       },
                       child: const Text(
                         "Forgot Password?",
@@ -124,17 +120,14 @@ class LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFE6303B),
+                        backgroundColor: const Color(0xFFE6303B),
                         padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => NewPasswordSucceed()),
-                        );
+                        Navigator.pushNamed(context, '/new-password-succeed');
                       },
                       child: const Text(
                         "Masuk",
@@ -150,8 +143,7 @@ class LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RegisterScreen()));
+                        Navigator.pushNamed(context, '/register');
                       },
                       child: RichText(
                         text: const TextSpan(
