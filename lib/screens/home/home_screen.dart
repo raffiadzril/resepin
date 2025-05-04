@@ -12,61 +12,55 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Mendapatkan status tema (gelap atau terang) dari provider
     final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
-    final theme = Theme.of(context);
-    final textColor = theme.textTheme.bodyLarge?.color ?? Colors.black;
-    final greyColor = theme.textTheme.bodyMedium?.color ?? Colors.grey;
+    final theme = Theme.of(context); // Mendapatkan tema saat ini
+    final textColor = theme.textTheme.bodyLarge?.color ?? Colors.black; // Warna teks utama
+    final greyColor = theme.textTheme.bodyMedium?.color ?? Colors.grey; // Warna teks abu-abu
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 56, // Adjust the height of the AppBar
-        title: const SearchBarWidget(hintText: "cari resep..."),
-        backgroundColor: theme.scaffoldBackgroundColor,
-        elevation: 0,
+        toolbarHeight: 56, // Menentukan tinggi AppBar
+        title: const SearchBarWidget(hintText: "cari resep..."), // Widget pencarian
+        backgroundColor: theme.scaffoldBackgroundColor, // Warna latar belakang AppBar
+        elevation: 0, // Menghilangkan bayangan AppBar
         iconTheme: IconThemeData(
-          color:
-              isDarkMode
-                  ? Colors.white
-                  : Colors.black, // Sesuaikan warna ikon dengan tema
+          color: isDarkMode ? Colors.white : Colors.black, // Warna ikon sesuai tema
         ),
         actions: [
           IconButton(
             icon: Icon(
-              isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              isDarkMode ? Icons.light_mode : Icons.dark_mode, // Ikon tema
               color: AppColors.primary,
             ),
-            onPressed:
-                () =>
-                    Provider.of<ThemeNotifier>(
-                      context,
-                      listen: false,
-                    ).toggleTheme(),
+            onPressed: () =>
+                Provider.of<ThemeNotifier>(context, listen: false).toggleTheme(), // Mengubah tema
           ),
           IconButton(
-            icon: Icon(Icons.notifications, color: AppColors.primary),
+            icon: Icon(Icons.notifications, color: AppColors.primary), // Ikon notifikasi
             onPressed: () {
-              Navigator.of(context).pushNamed('/notification');
+              Navigator.of(context).pushNamed('/notification'); // Navigasi ke halaman notifikasi
             },
           ),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNav(currentIndex: 0),
+      bottomNavigationBar: const CustomBottomNav(currentIndex: 0), // Navigasi bawah
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16), // Padding horizontal
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start, // Menyusun elemen ke kiri
           children: [
-            // Search & Carousel
+            // Bagian carousel
             Container(
               margin: const EdgeInsets.symmetric(vertical: 1),
-              height: 147,
+              height: 147, // Tinggi carousel
               child: PageView.builder(
                 controller: PageController(
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                ), // <-- Ukuran card
-                padEnds: false, // <-- ini yang menghilangkan padding kiri/kanan
-                itemCount: 3,
+                  viewportFraction: 0.8, // Ukuran card dalam viewport
+                  initialPage: 0, // Halaman awal
+                ),
+                padEnds: false, // Menghilangkan padding di ujung
+                itemCount: 3, // Jumlah item dalam carousel
                 itemBuilder: (context, index) {
                   final items = [
                     {
@@ -88,35 +82,35 @@ class HomeScreen extends StatelessWidget {
                       "route": "/resep-baru",
                     },
                   ];
-                  final item = items[index];
+                  final item = items[index]; // Mendapatkan item berdasarkan indeks
                   return _buildCarouselCard(
                     context,
-                    item["title"] as String,
-                    item["image"] as String,
-                    AppColors.darkTextPrimary,
-                    item["color"] as Color,
-                    item["route"] as String,
+                    item["title"] as String, // Judul item
+                    item["image"] as String, // Gambar item
+                    AppColors.darkTextPrimary, // Warna teks
+                    item["color"] as Color, // Warna gradien
+                    item["route"] as String, // Rute navigasi
                   );
                 },
               ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 16), // Jarak antar elemen
 
-            // Trending Resep
+            // Bagian Trending Resep
             Text(
               "Trending Resep",
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: textColor,
+                fontSize: 18, // Ukuran font
+                fontWeight: FontWeight.bold, // Teks tebal
+                color: textColor, // Warna teks
               ),
             ),
             const SizedBox(height: 12),
             SizedBox(
-              height: 180,
+              height: 180, // Tinggi list horizontal
               child: ListView(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.horizontal, // Arah scroll horizontal
                 children: [
                   RecipeCard(
                     title: "Rendang Lebaran",
@@ -150,23 +144,23 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Resep Baru
+            // Bagian Resep Baru
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end, // Elemen di kanan
               children: [
                 GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/trending');
-                },
-                child: Text(
-                  "Lihat Selengkapnya",
-                  style: TextStyle(color: AppColors.primary),
-                ),
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/trending'); // Navigasi ke trending
+                  },
+                  child: Text(
+                    "Lihat Selengkapnya",
+                    style: TextStyle(color: AppColors.primary), // Warna teks
+                  ),
                 ),
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Elemen tersebar
               children: [
                 Text(
                   "Resep Baru",
@@ -237,55 +231,51 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                GestureDetector(
-                  onTap: () {
-                  Navigator.of(context).pushNamed('/resep-baru');
-                  },
-                  child: Text(
-                  "Lihat Selengkapnya",
-                  style: TextStyle(color: AppColors.primary),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/resep-baru');
+                    },
+                    child: Text(
+                      "Lihat Selengkapnya",
+                      style: TextStyle(color: AppColors.primary),
+                    ),
                   ),
-                ),
                 ],
               ),
             ),
           ],
         ),
-        
       ),
-      floatingActionButton: BackButtonFloating(
-        onPressed: () {
-          Navigator.of(context).pop(); // Kembali ke StartScreen
-        },
-      ),
+      floatingActionButton: BackButtonFloating(), // Tombol kembali
     );
   }
 
+  // Fungsi untuk membuat kartu carousel
   Widget _buildCarouselCard(
     BuildContext context,
     String title,
     String imagePath,
     Color textColor,
     Color gradienColor,
-    String route, // Added route parameter
+    String route, // Rute navigasi
   ) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(route);
+        Navigator.of(context).pushNamed(route); // Navigasi ke rute
       },
       child: Container(
         margin: const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(33),
+          borderRadius: BorderRadius.circular(33), // Sudut melengkung
           image: DecorationImage(
-            image: AssetImage(imagePath),
-            fit: BoxFit.cover,
+            image: AssetImage(imagePath), // Gambar latar belakang
+            fit: BoxFit.cover, // Menyesuaikan gambar
             onError: (_, __) {},
           ),
         ),
         child: Container(
           padding: const EdgeInsets.all(16),
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.bottomLeft, // Teks di kiri bawah
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(33),
             gradient: LinearGradient(
@@ -311,6 +301,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  // Fungsi untuk membuat kartu resep
   Widget _buildRecipeCard(
     BuildContext context,
     String title,
@@ -329,11 +320,8 @@ class HomeScreen extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: AppColors.grey.withOpacity(0.2),
-            blurRadius: 6, // Increased blur radius for a softer shadow
-            offset: const Offset(
-              0,
-              3,
-            ), // Adjusted offset to ensure shadow is not cut off
+            blurRadius: 6, // Radius bayangan
+            offset: const Offset(0, 3), // Offset bayangan
           ),
         ],
       ),
@@ -350,15 +338,14 @@ class HomeScreen extends StatelessWidget {
                   height: 90,
                   width: 140,
                   fit: BoxFit.cover,
-                  errorBuilder:
-                      (context, error, stackTrace) => Container(
-                        height: 90,
-                        width: 140,
-                        color: Colors.grey,
-                        child: const Center(
-                          child: Icon(Icons.image_not_supported),
-                        ),
-                      ),
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    height: 90,
+                    width: 140,
+                    color: Colors.grey,
+                    child: const Center(
+                      child: Icon(Icons.image_not_supported),
+                    ),
+                  ),
                 ),
               ),
             ),
