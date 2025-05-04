@@ -257,7 +257,6 @@ class HomeScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(33),
         image: DecorationImage(
           image: AssetImage(imagePath),
           fit: BoxFit.cover,

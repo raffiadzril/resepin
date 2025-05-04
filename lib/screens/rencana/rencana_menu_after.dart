@@ -29,7 +29,7 @@ class DayPlan {
 }
 
 class RencanaMenuAfterScreen extends StatefulWidget {
-  const RencanaMenuAfterScreen({Key? key}) : super(key: key);
+  const RencanaMenuAfterScreen({super.key});
 
   @override
   State<RencanaMenuAfterScreen> createState() => _RencanaMenuAfterScreenState();

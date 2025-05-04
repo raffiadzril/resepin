@@ -4,12 +4,13 @@ import 'package:resepin/core/constants/app_colors.dart';
 import 'package:resepin/core/constants/recipe_model.dart';
 import 'package:resepin/providers/theme_notifier.dart';
 import 'package:resepin/screens/widgets/backButtonFloating.dart';
-import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 
 class StartCookingPage extends StatefulWidget {
   final Recipe recipe;
-
-  const StartCookingPage({Key? key, required this.recipe}) : super(key: key);
+  const StartCookingPage({
+    super.key,
+    required this.recipe,
+  });
 
   @override
   State<StartCookingPage> createState() => _StartCookingPageState();

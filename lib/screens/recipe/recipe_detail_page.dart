@@ -11,7 +11,7 @@ import 'package:resepin/screens/recipe/start_cooking_page.dart';
 import 'package:resepin/screens/widgets/star_rating.dart';
 
 class RecipeDetailPage extends StatefulWidget {
-  const RecipeDetailPage({Key? key}) : super(key: key);
+  const RecipeDetailPage({super.key});
 
   @override
   State<RecipeDetailPage> createState() => _RecipeDetailPageState();

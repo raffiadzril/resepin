@@ -8,7 +8,7 @@ import 'add_resep_baru.dart';
 import 'add_resep_tersimpan.dart';
 
 class RencanaMenuScreen extends StatefulWidget {
-  RencanaMenuScreen({Key? key}) : super(key: key);
+  const RencanaMenuScreen({super.key});
 
   @override
   _RencanaMenuScreenState createState() => _RencanaMenuScreenState();

@@ -6,10 +6,10 @@ class BackButtonFloating extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const BackButtonFloating({
-    Key? key,
+    super.key,
     this.text = 'Kembali ke Start',
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

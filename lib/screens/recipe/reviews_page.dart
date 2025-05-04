@@ -9,8 +9,10 @@ import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 
 class ReviewsPage extends StatefulWidget {
   final Recipe recipe;
-
-  const ReviewsPage({Key? key, required this.recipe}) : super(key: key);
+  const ReviewsPage({
+    super.key,
+    required this.recipe,
+  });
 
   @override
   State<ReviewsPage> createState() => _ReviewsPageState();
