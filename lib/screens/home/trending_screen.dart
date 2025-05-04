@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/core/constants/app_colors.dart';
-import 'package:resepin/core/constants/app_themes.dart';
 import 'package:resepin/screens/widgets/recipe_card.dart';
 import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 import 'package:resepin/screens/widgets/banner_title.dart';

@@ -194,8 +194,8 @@ class RegisterScreenState extends State<RegisterScreen> {
                               Theme(
                                 data: Theme.of(context).copyWith(
                                   checkboxTheme: CheckboxThemeData(
-                                    fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                      if (states.contains(MaterialState.selected)) {
+                                    fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+                                      if (states.contains(WidgetState.selected)) {
                                         return Colors.red; // Warna ketika dicentang
                                       }
                                       return Colors.grey; // Warna ketika tidak dicentang

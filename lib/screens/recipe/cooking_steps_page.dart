@@ -10,7 +10,7 @@ import 'package:resepin/screens/recipe/start_cooking_page.dart';
 class CookingStepsPage extends StatelessWidget {
   final Recipe recipe;
 
-  const CookingStepsPage({Key? key, required this.recipe}) : super(key: key);
+  const CookingStepsPage({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {

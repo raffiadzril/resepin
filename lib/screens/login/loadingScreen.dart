@@ -48,7 +48,7 @@ class LoadingScreenState extends State<LoadingScreen> {
                             width: double.infinity,
                             child: Column(
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 278,
                                   height: 81,
                                   child: Image.network(

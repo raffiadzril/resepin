@@ -1,9 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:resepin/core/constants/app_colors.dart';
-import 'package:resepin/core/constants/recipe_model.dart';
-import 'package:resepin/providers/theme_notifier.dart';
 import 'package:resepin/screens/login/newPassword.dart'; // Make sure this import exists
 
 class EmailVerify extends StatefulWidget {

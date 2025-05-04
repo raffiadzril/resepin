@@ -11,9 +11,9 @@ class ReviewsPage extends StatefulWidget {
   final Recipe recipe;
 
   const ReviewsPage({
-    Key? key,
+    super.key,
     required this.recipe,
-  }) : super(key: key);
+  });
 
   @override
   State<ReviewsPage> createState() => _ReviewsPageState();

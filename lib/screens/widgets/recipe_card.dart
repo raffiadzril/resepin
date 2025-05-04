@@ -11,7 +11,7 @@ class RecipeCard extends StatelessWidget {
   final Color greyColor;
 
   const RecipeCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.chef,
     required this.time,
@@ -19,7 +19,7 @@ class RecipeCard extends StatelessWidget {
     required this.rating, // ✅ Tambahkan rating ke konstruktor
     required this.textColor,
     required this.greyColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

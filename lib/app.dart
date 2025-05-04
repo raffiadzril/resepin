@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:resepin/core/constants/recipe_model.dart';
 import 'package:resepin/screens/login/emailVerift.dart';
 import 'package:resepin/screens/login/forgotPassword.dart';
 import 'package:resepin/screens/login/loadingScreen.dart';
@@ -9,8 +8,6 @@ import 'package:resepin/screens/login/loadingScreen2.dart';
 import 'package:resepin/screens/login/loadingScreen3.dart';
 import 'package:resepin/screens/login/newPassword.dart';
 import 'package:resepin/screens/login/registerScreen.dart';
-import 'package:resepin/screens/recipe/cooking_steps_page.dart';
-import 'package:resepin/screens/rencana/add_resep_anda.dart';
 import 'core/constants/app_themes.dart';
 import 'providers/theme_notifier.dart';
 import 'screens/home/home_screen.dart';

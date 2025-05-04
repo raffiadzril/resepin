@@ -63,7 +63,7 @@ class NewPasswordSucceedState extends State<NewPasswordSucceed> {
 																	),
 																),
 																IntrinsicHeight(
-																	child: Container(
+																	child: SizedBox(
 																		width: double.infinity,
 																		child: Column(
 																			crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +134,7 @@ class NewPasswordSucceedState extends State<NewPasswordSucceed> {
 																																		Column(
 																																			crossAxisAlignment: CrossAxisAlignment.start,
 																																			children: [
-																																				Container(
+																																				SizedBox(
 																																					width: 244,
 																																					height: 203,
 																																					child: Image.network(
@@ -177,7 +177,7 @@ class NewPasswordSucceedState extends State<NewPasswordSucceed> {
 																										),
 																									),
 																								),
-																								Container(
+																								SizedBox(
 																									width: 272,
 																									child: Text(
 																										"Kata sandi berhasil diubah, Anda dapat masuk kembali dengan kata sandi baru.",

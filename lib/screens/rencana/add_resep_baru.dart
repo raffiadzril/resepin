@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddResepBaruScreen extends StatefulWidget {
-  const AddResepBaruScreen({Key? key}) : super(key: key);
+  const AddResepBaruScreen({super.key});
 
   @override
   _AddResepBaruScreenState createState() => _AddResepBaruScreenState();
@@ -21,7 +21,7 @@ class _AddResepBaruScreenState extends State<AddResepBaruScreen> {
 
   final List<Recipe> selectedRecipes = [];
   final TextEditingController _searchController = TextEditingController();
-  bool _showSuccessMessage = true;
+  final bool _showSuccessMessage = true;
 
   @override
   void dispose() {

@@ -5,7 +5,7 @@ import 'package:resepin/providers/theme_notifier.dart';
 import '../widgets/custom_bottom_nav.dart';
 
 class AddResepScreen extends StatefulWidget {
-  const AddResepScreen({Key? key}) : super(key: key);
+  const AddResepScreen({super.key});
 
   @override
   State<AddResepScreen> createState() => _AddResepScreenState();
@@ -15,13 +15,13 @@ class _AddResepScreenState extends State<AddResepScreen> {
   // Recipe details controllers
   final TextEditingController _titleController = TextEditingController();
   int _portions = 3;
-  int _prepMinutes = 45;
-  int _cookMinutes = 45;
+  final int _prepMinutes = 45;
+  final int _cookMinutes = 45;
   
   // Ingredient controllers
   final TextEditingController _ingredientController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
-  String _selectedUnit = 'gram';
+  final String _selectedUnit = 'gram';
   
   // Step controllers
   final TextEditingController _stepController = TextEditingController();

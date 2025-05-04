@@ -10,9 +10,9 @@ class StartCookingPage extends StatefulWidget {
   final Recipe recipe;
 
   const StartCookingPage({
-    Key? key,
+    super.key,
     required this.recipe,
-  }) : super(key: key);
+  });
 
   @override
   State<StartCookingPage> createState() => _StartCookingPageState();

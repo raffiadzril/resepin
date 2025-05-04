@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'newPasswordSucceed.dart';
-import 'registerScreen.dart';
-import 'forgotPassword.dart';
 
 
 
