@@ -31,7 +31,14 @@ class _StartCookingPageState extends State<StartCookingPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.title),
+        title: Text(
+          widget.recipe.title,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
+        ),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
@@ -48,7 +55,6 @@ class _StartCookingPageState extends State<StartCookingPage> {
           ),
         ],
       ),
-      floatingActionButton: const BackButtonFloating(),
       body: Column(
         children: [
           // Progress Indicator
@@ -289,7 +295,7 @@ class _StartCookingPageState extends State<StartCookingPage> {
 
           // Navigation Buttons
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
             child: Row(
               children: [
                 if (currentStep > 0)

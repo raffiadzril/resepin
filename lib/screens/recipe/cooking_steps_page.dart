@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:resepin/core/constants/app_colors.dart';
 import 'package:resepin/core/constants/recipe_model.dart';
 import 'package:resepin/providers/theme_notifier.dart';
-import 'package:resepin/screens/widgets/backButtonFloating.dart';
 import 'package:resepin/screens/recipe/start_cooking_page.dart';
 
 class CookingStepsPage extends StatelessWidget {
@@ -38,7 +37,6 @@ class CookingStepsPage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: const BackButtonFloating(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
