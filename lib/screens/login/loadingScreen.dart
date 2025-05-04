@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'loadingScreen1.dart'; // Pastikan untuk mengimpor loadingscr1.dart
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoadingScreen(),
-    );
-  }
-}
+import 'package:resepin/screens/login/loadingScreen1.dart'; // Pastikan untuk mengimpor loadingscr1.dart
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/providers/theme_notifier.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});

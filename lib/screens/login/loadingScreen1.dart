@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
-import 'loginScreen.dart';
-import 'loadingScreen2.dart';
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/screens/login/loginScreen.dart';
+import 'package:resepin/screens/login/loadingScreen2.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoadingScreen1(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
 
 class LoadingScreen1 extends StatelessWidget {
   const LoadingScreen1({super.key});

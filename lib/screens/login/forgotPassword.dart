@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'emailVerift.dart'; 
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/screens/login/emailVerift.dart'; 
 
 void main() {
   runApp(MyApp());

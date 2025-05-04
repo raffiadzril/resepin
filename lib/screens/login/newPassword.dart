@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
-import 'newPasswordSucceed.dart'; // Import the success screen
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/screens/login/newPasswordSucceed.dart'; // Import the success screen
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: NewPassword(),
-    );
-  }
-}
 
 class NewPassword extends StatefulWidget {
   const NewPassword({super.key});

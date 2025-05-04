@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
-import 'newPasswordSucceed.dart';
-import 'registerScreen.dart';
-import 'forgotPassword.dart';
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/screens/login/newPasswordSucceed.dart';
+import 'package:resepin/screens/login/registerScreen.dart';
+import 'package:resepin/screens/login/forgotPassword.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

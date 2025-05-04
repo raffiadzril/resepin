@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
-import 'loginScreen.dart';
-import 'loadingScreen3.dart';
+import 'package:provider/provider.dart';
+import 'package:resepin/core/constants/app_colors.dart';
+import 'package:resepin/core/constants/recipe_model.dart';
+import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/screens/login/loginScreen.dart';
+import 'package:resepin/screens/login/loadingScreen3.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoadingScreen2(),
-    );
-  }
-}
 
 class LoadingScreen2 extends StatelessWidget {
   const LoadingScreen2({super.key});
