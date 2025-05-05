@@ -24,6 +24,7 @@ import 'screens/rencana/rencana_menu_after.dart';
 import 'screens/add/tambah_resep.dart';
 import 'screens/home/trending_screen.dart';
 import 'screens/login/newPasswordSucceed.dart';
+import 'screens/recipe/bookmark_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         '/loading2': (context) => const LoadingScreen2(),
         '/loading3': (context) => const LoadingScreen3(),
         '/register': (context) => const RegisterScreen(),
+        '/bookmark': (context) => const BookmarkPage(bookmarkedRecipes: []),
 
       },
     );
