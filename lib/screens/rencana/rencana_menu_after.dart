@@ -41,7 +41,7 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
       day: 'Senin',
       recipe: Recipe(
         name: 'Rendang Lebaran',
-        imageUrl: 'https://example.com/rendang.jpg',
+        imageUrl: '../../../assets/images/home/rendang_hd.jpg',
         rating: 4.7,
         chef: 'Chef Juna',
         cookTime: '1 jam',
@@ -51,7 +51,7 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
       day: 'Selasa',
       recipe: Recipe(
         name: 'Pasta Carbonara',
-        imageUrl: 'https://example.com/pasta.jpg',
+        imageUrl: '../../../assets/images/home/pasta_carbonara.png',
         rating: 4.6,
         chef: 'Rendy Ando',
         cookTime: '1 jam',
@@ -259,21 +259,11 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
                 bottomLeft: Radius.circular(8),
                 bottomRight: Radius.circular(8),
               ),
-              child: Image.network(
+              child: Image.asset(
                 recipe.imageUrl,
                 height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 150,
-                    width: double.infinity,
-                    color: theme.dividerColor,
-                    child: const Center(
-                      child: Icon(Icons.restaurant, size: 50, color: Colors.grey),
-                    ),
-                  );
-                },
               ),
             ),
             Positioned(
