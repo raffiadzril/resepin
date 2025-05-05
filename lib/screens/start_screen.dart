@@ -13,11 +13,8 @@ class StartScreen extends StatelessWidget {
         {'label': 'Cari Resep Berdasarkan Bahan', 'route': '/cari-resep-bahan'},
         {'label': 'Trending', 'route': '/trending'},
         {'label': 'Resep Baru', 'route': '/resep-baru'},
-<<<<<<< HEAD
         {'label': 'Cari Resep', 'route': '/cari-resep'},
-=======
         {'label': 'Notifikasi', 'route': '/notification'},
->>>>>>> d6e9190cdad21764286c96ccc1d9996c15807016
       ],
       'Rencana Menu': [
         {'label': 'Rencana Menu', 'route': '/rencana'},
