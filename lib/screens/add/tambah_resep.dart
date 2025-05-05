@@ -20,7 +20,6 @@ class _AddResepScreenState extends State<AddResepScreen> {
   // Ingredient controllers
   final TextEditingController _ingredientController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
-  final String _selectedUnit = 'gram';
   
   // Step controllers
   final TextEditingController _stepController = TextEditingController();
@@ -80,13 +79,6 @@ class _AddResepScreenState extends State<AddResepScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Back button
-                IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.red),
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  alignment: Alignment.centerLeft,
-                ),
                 
                 // SECTION 1: CREATE RECIPE
                 Text(
@@ -124,7 +116,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                 Container(
                   height: 180,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade900,
+                    color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -134,13 +126,13 @@ class _AddResepScreenState extends State<AddResepScreen> {
                         Icon(
                           Icons.add_photo_alternate_outlined,
                           size: 48,
-                          color: Colors.grey.shade600,
+                          color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade400 : Colors.grey.shade600,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Tambahkan Cover',
                           style: TextStyle(
-                            color: Colors.grey.shade600,
+                            color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                       ],
@@ -161,7 +153,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade900,
+                    color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: DropdownButton<int>(
@@ -218,7 +210,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade900,
+                                    color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
@@ -231,7 +223,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade900,
+                                  color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
@@ -262,7 +254,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade900,
+                                    color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
@@ -275,7 +267,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade900,
+                                  color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
@@ -325,7 +317,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade900,
+                          color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Text('Ukuran'),
@@ -339,7 +331,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade900,
+                          color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -425,7 +417,7 @@ class _AddResepScreenState extends State<AddResepScreen> {
                 Container(
                   height: 180,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade900,
+                    color: Provider.of<ThemeNotifier>(context).isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
