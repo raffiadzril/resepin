@@ -200,7 +200,11 @@ class HomeScreen extends StatelessWidget {
                     title: "Nasi Goreng Kampung",
                     chef: "Chef Juleha",
                     time: "45 menit",
+<<<<<<< HEAD
                     imagePath: "images/home/nasigorengkampung.jpg",
+=======
+                    imagePath: "images/home/nasiGorengKampung.jpg",
+>>>>>>> d6e9190cdad21764286c96ccc1d9996c15807016
                     rating: 4.6,
                     textColor: textColor,
                     greyColor: greyColor,
@@ -209,7 +213,11 @@ class HomeScreen extends StatelessWidget {
                     title: "Spaghetti Carbonara",
                     chef: "Chef Gordon",
                     time: "1.5 jam",
+<<<<<<< HEAD
                     imagePath: "images/home/spaghetticarbonara.jpg",
+=======
+                    imagePath: "images/home/spaghettiCarbonara.jpg",
+>>>>>>> d6e9190cdad21764286c96ccc1d9996c15807016
                     rating: 4.9,
                     textColor: textColor,
                     greyColor: greyColor,
@@ -218,7 +226,11 @@ class HomeScreen extends StatelessWidget {
                     title: "Martabak Manis",
                     chef: "Chef Rangga",
                     time: "1 jam",
+<<<<<<< HEAD
                     imagePath: "images/home/martabakmanis.jpeg",
+=======
+                    imagePath: "images/home/martabakManis.jpeg",
+>>>>>>> d6e9190cdad21764286c96ccc1d9996c15807016
                     rating: 4.5,
                     textColor: textColor,
                     greyColor: greyColor,

@@ -10,12 +10,12 @@ class AddResepAndaScreen extends StatefulWidget {
 class _AddResepAndaScreenState extends State<AddResepAndaScreen> {
   final List<Recipe> availableRecipes = [
     Recipe(
-      name: 'Pasta Carbonara',
-      imageUrl: 'https://example.com/pasta.jpg',
+      name: 'Rendang Lebaran',
+      imageUrl: '../../../assets/images/home/rendang_hd.jpg',
     ),
     Recipe(
-      name: 'Ayam Panggang',
-      imageUrl: 'https://example.com/ayam.jpg',
+      name: 'Pasta Carbonara',
+      imageUrl: '../../../assets/images/home/pasta_carbonara.png',
     ),
   ];
 

@@ -95,7 +95,9 @@ class ProfileScreen extends StatelessWidget {
                               vertical: 10,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/edit-profile');
+                          },
                           child: const Text(
                             "Edit Profile",
                             style: TextStyle(
@@ -186,7 +188,7 @@ class ProfileScreen extends StatelessWidget {
                   title: "Nasi Goreng Kampung",
                   chef: "Chef Salt Bae",
                   time: "45 menit",
-                  imagePath: "images/home/nasiGorengKampung.png",
+                  imagePath: "images/home/nasiGorengKampung.jpg",
                   rating: 4.6,
                   textColor: textColor,
                   greyColor: greyColor,
@@ -201,7 +203,7 @@ class ProfileScreen extends StatelessWidget {
                   title: "Spaghetti Carbonara",
                   chef: "Chef Salt Bae",
                   time: "1.5 jam",
-                  imagePath: "images/home/spaghettiCarbonara.png",
+                  imagePath: "images/home/spaghettiCarbonara.jpg",
                   rating: 4.9,
                   textColor: textColor,
                   greyColor: greyColor,
@@ -210,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
                   title: "Martabak Manis",
                   chef: "Chef Salt Bae",
                   time: "1 jam",
-                  imagePath: "images/home/martabakManis.png",
+                  imagePath: "images/home/martabakManis.jpeg",
                   rating: 4.5,
                   textColor: textColor,
                   greyColor: greyColor,
