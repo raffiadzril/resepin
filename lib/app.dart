@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:resepin/core/constants/recipe_model.dart';
-import 'package:resepin/screens/recipe/cooking_steps_page.dart';
-import 'package:resepin/screens/rencana/add_resep_anda.dart';
+import 'package:resepin/screens/home/cariResepBahan_screen.dart';
+import 'package:resepin/screens/home/resepBaru_screen.dart';
+import 'package:resepin/screens/login/emailVerift.dart';
+import 'package:resepin/screens/login/forgotPassword.dart';
+import 'package:resepin/screens/login/loadingScreen.dart';
+import 'package:resepin/screens/login/loadingScreen1.dart';
+import 'package:resepin/screens/login/loadingScreen2.dart';
+import 'package:resepin/screens/login/loadingScreen3.dart';
+import 'package:resepin/screens/login/newPassword.dart';
+import 'package:resepin/screens/login/registerScreen.dart';
 import 'core/constants/app_themes.dart';
 import 'providers/theme_notifier.dart';
 import 'screens/home/home_screen.dart';
-import 'screens/start_screen.dart'; // <-- tambahkan ini
-import 'screens/settings/profile_screen.dart'; // <-- tambahkan ini
-import 'screens/settings/settings_screen.dart'; // <-- tambahkan ini
-import 'screens/home/notifikation_screen.dart'; // <-- tambahkan ini
-import 'screens/rencana/rencana_menu.dart'; // <-- tambahkan ini
+import 'screens/start_screen.dart';
+import 'screens/settings/profile_screen.dart';
+import 'screens/settings/settings_screen.dart';
+import 'screens/home/notifikation_screen.dart';
+import 'screens/rencana/rencana_menu.dart';
 import 'screens/recipe/recipe_detail_page.dart';
 import 'screens/rencana/rencana_menu_after.dart';
 import 'screens/add/tambah_resep.dart';
+import 'screens/home/trending_screen.dart';
+import 'screens/login/newPasswordSucceed.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -22,20 +32,33 @@ class MyApp extends StatelessWidget {
     final isDark = context.watch<ThemeNotifier>().isDarkMode;
 
     return MaterialApp(
-      title: 'Flutter Clean App',
+      title: 'Flutter Resepin Apps',
       debugShowCheckedModeBanner: false,
       theme: isDark ? AppThemes.darkTheme : AppThemes.lightTheme,
-      home: const StartScreen(), // <--- ganti ke StartScreen
+      home: const StartScreen(),
       routes: {
         '/start': (context) => const StartScreen(),
         '/home': (context) => const HomeScreen(),
+        '/cari-resep-bahan': (context) => const CariresepbahanScreen(),
+        '/trending': (context) => const TrendingScreen(),
+        '/resep-baru': (context) => const ResepBaruScreen(),
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
-        '/rencana': (context) => RencanaMenuScreen(), // <-- tambahkan ini
-        '/recipe': (context) => const RecipeDetailPage(), // <-- tambahkan ini
-        '/rencana_after': (context) => RencanaMenuAfterScreen(), // <-- tambahkan ini
-        '/add': (context) => const AddResepScreen(), // <-- tambahkan ini
+        '/rencana': (context) => RencanaMenuScreen(),
+        '/recipe-detail': (context) => const RecipeDetailPage(),
+        '/rencana_after': (context) => RencanaMenuAfterScreen(),
+        '/add': (context) => const AddResepScreen(),
+        '/new-password-succeed': (context) => const NewPasswordSucceed(),
+        '/new-password': (context) => const NewPassword(),
+        '/email-verification': (context) => const EmailVerify(email: ''),
+        '/forgot-password': (context) => const ForgotPassword(),
+        '/loading': (context) => const LoadingScreen(),
+        '/loading1': (context) => const LoadingScreen1(),
+        '/loading2': (context) => const LoadingScreen2(),
+        '/loading3': (context) => const LoadingScreen3(),
+        '/register': (context) => const RegisterScreen(),
+
       },
     );
   }

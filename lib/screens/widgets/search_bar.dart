@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:resepin/core/constants/app_colors.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+  final String hintText;
+
+  const SearchBarWidget({
+    super.key,
+    required this.hintText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class SearchBarWidget extends StatelessWidget {
       height: 40, // Reduce the height of the TextField
       child: TextField(
         decoration: InputDecoration(
-          hintText: "Cari resep...",
+          hintText: hintText, // Use the hintText parameter
           hintStyle: TextStyle(color: theme.textTheme.bodyMedium?.color ?? AppColors.grey),
           prefixIcon: Icon(Icons.search, color: theme.textTheme.bodyMedium?.color ?? AppColors.grey),
           contentPadding: const EdgeInsets.symmetric(

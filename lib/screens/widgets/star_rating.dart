@@ -8,12 +8,12 @@ class StarRating extends StatelessWidget {
   final VoidCallback? onTap;
 
   const StarRating({
-    Key? key,
+    super.key,
     required this.rating,
     this.size = 16.0,
     this.showRatingNumber = false,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

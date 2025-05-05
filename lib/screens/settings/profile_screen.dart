@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
