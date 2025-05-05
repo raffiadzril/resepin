@@ -30,6 +30,8 @@ class StartScreen extends StatelessWidget {
       'Profil': [
         {'label': 'Profil', 'route': '/profile'},
         {'label': 'Edit Profil', 'route': '/edit-profile'},
+        {'label': 'Pengaturan', 'route': '/settings'},
+        {'label': 'Ubah Kata Sandi', 'route': '/change-password'},
       ],
       'Detail Resep': [
         {'label': 'Detail Resep', 'route': '/recipe-detail'},
