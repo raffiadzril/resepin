@@ -65,6 +65,7 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
   ];
 
   final List<String> weekdayInitials = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
+  final List<String> weekdayNames = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
   final List<int> activeWeekdays = [0, 1, 4];
 
   OverlayEntry? _overlayEntry;
@@ -166,20 +167,31 @@ class _RencanaMenuAfterScreenState extends State<RencanaMenuAfterScreen> {
   Widget _buildWeekdayCircle(int index, ThemeData theme) {
     final bool isActive = activeWeekdays.contains(index);
 
-    return Container(
-      width: 36,
-      height: 36,
-      decoration: BoxDecoration(
-        color: isActive ? AppColors.primary : Colors.transparent,
-        shape: BoxShape.circle,
-        border: isActive ? null : Border.all(color: theme.dividerColor),
-      ),
-      child: Center(
-        child: Text(
-          weekdayInitials[index],
-          style: TextStyle(
-            color: isActive ? Colors.white : theme.hintColor,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (activeWeekdays.contains(index)) {
+            activeWeekdays.remove(index);
+          } else {
+            activeWeekdays.add(index);
+          }
+        });
+      },
+      child: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: isActive ? Colors.red : Colors.transparent,
+          shape: BoxShape.circle,
+          border: isActive ? null : Border.all(color: theme.dividerColor),
+        ),
+        child: Center(
+          child: Text(
+            weekdayInitials[index],
+            style: TextStyle(
+              color: isActive ? Colors.white : theme.hintColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

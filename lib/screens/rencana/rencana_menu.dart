@@ -32,6 +32,15 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
     'S',
     'M',
   ];
+  final List<String> daysOfWeekFull = [
+    'Senin',
+    'Selasa',
+    'Rabu',
+    'Kamis',
+    'Jumat',
+    'Sabtu',
+    'Minggu',
+  ];
 
   // Define the activeWeekdays variable
   final List<int> activeWeekdays = [0, 1, 2, 4]; // Example: Active weekdays are Monday, Tuesday, Wednesday, and Friday
@@ -137,20 +146,31 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
   Widget _buildWeekdayCircle(int index, ThemeData theme) {
     final bool isActive = activeWeekdays.contains(index);
 
-    return Container(
-      width: 36,
-      height: 36,
-      decoration: BoxDecoration(
-        color: isActive ? AppColors.primary : Colors.transparent,
-        shape: BoxShape.circle,
-        border: isActive ? null : Border.all(color: theme.dividerColor),
-      ),
-      child: Center(
-        child: Text(
-          daysOfWeek[index],
-          style: TextStyle(
-            color: isActive ? Colors.white : theme.textTheme.bodyLarge?.color ?? Colors.black,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (activeWeekdays.contains(index)) {
+            activeWeekdays.remove(index);
+          } else {
+            activeWeekdays.add(index);
+          }
+        });
+      },
+      child: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: isActive ? Colors.red : Colors.transparent,
+          shape: BoxShape.circle,
+          border: isActive ? null : Border.all(color: theme.dividerColor),
+        ),
+        child: Center(
+          child: Text(
+            daysOfWeek[index],
+            style: TextStyle(
+              color: isActive ? Colors.white : theme.textTheme.bodyLarge?.color ?? Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
@@ -170,7 +190,7 @@ class _RencanaMenuScreenState extends State<RencanaMenuScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              daysOfWeek[index],
+              daysOfWeekFull[index],
               style: TextStyle(
                 color: theme.textTheme.bodyLarge?.color ?? Colors.black,
                 fontSize: 16,
