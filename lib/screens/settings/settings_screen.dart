@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/providers/theme_notifier.dart';
+import '../widgets/custom_bottom_nav.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -9,16 +10,12 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textColor = theme.textTheme.bodyLarge?.color ?? Colors.black;
-    // Removed unused variable greyColor
     final isDarkMode = Provider.of<ThemeNotifier>(context).isDarkMode;
 
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color:
-              isDarkMode
-                  ? Colors.white
-                  : Colors.black, // Sesuaikan warna ikon dengan tema
+          color: isDarkMode ? Colors.white : Colors.black,
         ),
         title: Text(
           'Pengaturan',
@@ -45,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
               iconColor: Theme.of(context).iconTheme.color ?? Colors.black,
               title: 'Profil Saya',
               onTap: () {
-                // Navigate to profile
+                Navigator.of(context).pushNamed('/edit-profile');
               },
             ),
             SettingsCard(
@@ -53,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
               iconColor: Theme.of(context).iconTheme.color ?? Colors.black,
               title: 'Ubah Kata Sandi',
               onTap: () {
-                // Navigate to notifications
+                Navigator.of(context).pushNamed('/change-password');
               },
             ),
             Text(
@@ -68,8 +65,16 @@ class SettingsScreen extends StatelessWidget {
               iconColor: Theme.of(context).iconTheme.color ?? Colors.black,
               title: 'Mode Gelap',
               onTap: () {
-                // Navigate to notifications
+                Provider.of<ThemeNotifier>(context, listen: false)
+                    .toggleTheme();
               },
+              trailingWidget: Switch(
+                value: isDarkMode,
+                onChanged: (value) {
+                  Provider.of<ThemeNotifier>(context, listen: false)
+                      .toggleTheme();
+                },
+              ),
             ),
             SettingsCard(
               icon: Icons.language,
@@ -89,7 +94,7 @@ class SettingsScreen extends StatelessWidget {
             SettingsCard(
               icon: Icons.notifications,
               iconColor: Theme.of(context).iconTheme.color ?? Colors.black,
-              title: 'Notifications',
+              title: 'Notifikasi',
               onTap: () {
                 // Navigate to notifications
               },
@@ -135,7 +140,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             Text(
               'Lainnya',
-              style: theme.textTheme.bodyLarge?.copyWith( 
+              style: theme.textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: textColor,
               ),
@@ -159,6 +164,9 @@ class SettingsScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const CustomBottomNav(
+        currentIndex: 4,
+      ),
     );
   }
 }
@@ -175,7 +183,10 @@ class SettingsCard extends StatelessWidget {
     required this.iconColor,
     required this.title,
     required this.onTap,
+    this.trailingWidget,
   });
+
+  final Widget? trailingWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -186,10 +197,13 @@ class SettingsCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
         ),
         elevation: 4,
-        child: ListTile(
-          leading: Icon(icon, color: iconColor),
-          title: Text(title),
+        child: InkWell(
           onTap: onTap,
+          child: ListTile(
+            leading: Icon(icon, color: iconColor),
+            title: Text(title),
+            trailing: trailingWidget,
+          ),
         ),
       ),
     );
