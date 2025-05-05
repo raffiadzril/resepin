@@ -4,11 +4,65 @@ import 'package:resepin/core/constants/app_colors.dart';
 import 'package:resepin/core/constants/recipe_model.dart';
 import 'package:resepin/providers/theme_notifier.dart';
 import 'package:resepin/screens/recipe/recipe_detail_page.dart';
+import 'package:resepin/screens/widgets/recipe_card.dart';
+import 'package:resepin/screens/widgets/custom_bottom_nav.dart';
 
-// ...existing import...
 class BookmarkPage extends StatelessWidget {
-  final List<Recipe> bookmarkedRecipes;
-  const BookmarkPage({super.key, required this.bookmarkedRecipes});
+  const BookmarkPage({super.key});
+
+  // Dummy categories
+  final List<Map<String, String>> categories = const [
+    {"name": "Favorit", "image": "images/home/rendangLebaran.png"},
+    {"name": "Sarapan", "image": "images/home/nasiGorengKampung.jpg"},
+    {"name": "Makan Siang", "image": "images/home/dendengBatokok.png"},
+    {"name": "Cemilan", "image": "images/home/chocolateMousse.png"},
+  ];
+
+  // Dummy recipes
+  final List<Map<String, dynamic>> recipes = const [
+    {
+      "title": "Rendang Lebaran",
+      "chef": "Chef Juna",
+      "time": "8 jam",
+      "imagePath": "images/home/rendangLebaran.png",
+      "rating": 4.9,
+    },
+    {
+      "title": "Chinese Dimsum",
+      "chef": "Chef Arnold",
+      "time": "2 jam",
+      "imagePath": "images/home/chineseDimsum.png",
+      "rating": 4.7,
+    },
+    {
+      "title": "Ayam Panggang",
+      "chef": "Chef Juleha",
+      "time": "1.5 jam",
+      "imagePath": "images/home/ayamPanggang.png",
+      "rating": 4.8,
+    },
+    {
+      "title": "Dendeng Batokok",
+      "chef": "Chef Renatta",
+      "time": "3 jam",
+      "imagePath": "images/home/dendengBatokok.png",
+      "rating": 4.7,
+    },
+    {
+      "title": "Chocolate Mousse",
+      "chef": "Chef Reynald",
+      "time": "1 jam",
+      "imagePath": "images/home/chocolateMousse.png",
+      "rating": 4.5,
+    },
+    {
+      "title": "Nasi Goreng Kampung",
+      "chef": "Chef Juleha",
+      "time": "45 menit",
+      "imagePath": "images/home/nasiGorengKampung.jpg",
+      "rating": 4.6,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +70,7 @@ class BookmarkPage extends StatelessWidget {
     final textColor =
         isDarkMode ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
     final greyColor = AppColors.grey;
+    final padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 16);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,178 +88,114 @@ class BookmarkPage extends StatelessWidget {
           color: isDarkMode ? Colors.white : Colors.black,
         ),
       ),
-      body:
-          bookmarkedRecipes.isEmpty
-              ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.bookmark_border,
-                      size: 64,
-                      color: AppColors.primary.withOpacity(0.7),
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      'Belum ada resep yang kamu simpan',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Yuk, cari resep favoritmu dan tekan ikon bookmark untuk menyimpannya di sini!',
-                      style: TextStyle(fontSize: 14, color: greyColor),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.search),
-                      label: const Text('Cari Resep Sekarang'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/home');
-                      },
-                    ),
-                  ],
-                ),
-              )
-              : ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: bookmarkedRecipes.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 16),
-                itemBuilder: (context, index) {
-                  final recipe = bookmarkedRecipes[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RecipeDetailPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: isDarkMode ? AppColors.darkBox : Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.grey.withOpacity(0.08),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
+      bottomNavigationBar: const CustomBottomNav(currentIndex: 3),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Horizontal category bar
+              SizedBox(
+                height: 90,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length + 1,
+                  separatorBuilder: (_, __) => const SizedBox(width: 16),
+                  itemBuilder: (context, index) {
+                    if (index < categories.length) {
+                      final cat = categories[index];
+                      return Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 28,
+                            backgroundImage: AssetImage(cat["image"]!),
+                          ),
+                          const SizedBox(height: 6),
+                          SizedBox(
+                            width: 60,
+                            child: Text(
+                              cat["name"]!,
+                              style: TextStyle(fontSize: 12, color: textColor),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ],
-                      ),
-                      child: Row(
+                      );
+                    } else {
+                      // Add category button
+                      return Column(
                         children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.horizontal(
-                              left: Radius.circular(16),
-                            ),
-                            child: Image.asset(
-                              recipe.imageUrl,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              errorBuilder:
-                                  (context, error, stackTrace) => Container(
-                                    width: 100,
-                                    height: 100,
-                                    color: Colors.grey[300],
-                                    child: const Icon(
-                                      Icons.image,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    recipe.title,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    recipe.description,
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: greyColor,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: AppColors.orange,
-                                        size: 16,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        recipe.rating.toStringAsFixed(1),
-                                        style: TextStyle(
-                                          color: AppColors.orange,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Icon(
-                                        Icons.access_time,
-                                        size: 15,
-                                        color: greyColor,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        '${recipe.totalTime ~/ 60} jam',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: greyColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              width: 56,
+                              height: 56,
+                              decoration: BoxDecoration(
+                                color:
+                                    isDarkMode
+                                        ? Colors.grey[800]
+                                        : Colors.grey[200],
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.red, width: 1),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.red,
+                                  size: 28,
+                                ),
                               ),
                             ),
                           ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.bookmark,
-                              color: AppColors.primary,
+                          const SizedBox(height: 6),
+                          SizedBox(
+                            width: 60,
+                            child: Text(
+                              "Tambah",
+                              style: TextStyle(fontSize: 12, color: textColor),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             ),
-                            onPressed: () {
-                              // Tambahkan aksi hapus bookmark jika diperlukan
-                            },
                           ),
                         ],
-                      ),
-                    ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Grid of recipes
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: recipes.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 0.8, // Adjusted to prevent overflow
+                ),
+                itemBuilder: (context, index) {
+                  final r = recipes[index];
+                  return RecipeCard(
+                    title: r["title"],
+                    chef: r["chef"],
+                    time: r["time"],
+                    imagePath: r["imagePath"],
+                    rating: r["rating"],
+                    textColor: textColor,
+                    greyColor: greyColor,
                   );
                 },
               ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

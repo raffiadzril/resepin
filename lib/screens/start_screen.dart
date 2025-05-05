@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/providers/theme_notifier.dart';
+import 'package:resepin/core/constants/sample_data.dart';
+import 'package:resepin/screens/recipe/start_cooking_page.dart';
+import 'package:resepin/screens/recipe/cooking_steps_page.dart';
+import 'package:resepin/screens/recipe/reviews_page.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -13,7 +17,6 @@ class StartScreen extends StatelessWidget {
         {'label': 'Cari Resep Berdasarkan Bahan', 'route': '/cari-resep-bahan'},
         {'label': 'Trending', 'route': '/trending'},
         {'label': 'Resep Baru', 'route': '/resep-baru'},
-        {'label': 'Cari Resep', 'route': '/cari-resep'},
         {'label': 'Notifikasi', 'route': '/notification'},
       ],
       'Rencana Menu': [
@@ -32,6 +35,10 @@ class StartScreen extends StatelessWidget {
       ],
       'Detail Resep': [
         {'label': 'Detail Resep', 'route': '/recipe-detail'},
+        {'label': 'Start Cooking', 'route': '/start-cooking'},
+        {'label': 'Cooking Steps', 'route': '/cooking-steps'},
+        {'label': 'Reviews', 'route': '/reviews'},
+        {'label': 'Bookmark', 'route': '/bookmark'},
       ],
       'Forgot Password': [
         {'label': 'New Password Succeed', 'route': '/new-password-succeed'},
@@ -60,111 +67,207 @@ class StartScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Light Mode",
-                      style: Theme.of(context).textTheme.titleMedium
-                    ),
-                    Text(
-                      "Dark Mode",
-                      style: Theme.of(context).textTheme.titleMedium
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
-              ...groupedFeatures.entries.map((entry) {
-                final title = entry.key;
-                final features = entry.value;
+            children:
+                groupedFeatures.entries.map((entry) {
+                  final title = entry.key;
+                  final features = entry.value;
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (title.isNotEmpty) ...[
-                      const SizedBox(height: 24),
-                      Center(
-                        child: Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (title.isNotEmpty) ...[
+                        const SizedBox(height: 24),
+                        Center(
+                          child: Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                      ...features.map(
+                        (feature) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              // Light Mode Button
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).cardColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Provider.of<ThemeNotifier>(
+                                      context,
+                                      listen: false,
+                                    ).toggleThemeTo(false);
+                                    if (title == 'Detail Resep') {
+                                      final recipe =
+                                          SampleData.getRendangRecipe();
+                                      switch (feature['label']) {
+                                        case 'Start Cooking':
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => StartCookingPage(
+                                                    recipe: recipe,
+                                                  ),
+                                            ),
+                                          );
+                                          break;
+                                        case 'Cooking Steps':
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => CookingStepsPage(
+                                                    recipe: recipe,
+                                                  ),
+                                            ),
+                                          );
+                                          break;
+                                        case 'Reviews':
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => ReviewsPage(
+                                                    recipe: recipe,
+                                                  ),
+                                            ),
+                                          );
+                                          break;
+                                        case 'Bookmark':
+                                          Navigator.pushNamed(
+                                            context,
+                                            '/bookmark',
+                                          );
+                                          break;
+                                        default:
+                                          Navigator.pushNamed(
+                                            context,
+                                            feature['route'],
+                                          );
+                                      }
+                                    } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        feature['route'],
+                                      );
+                                    }
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      feature['label'],
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
                               ),
+                              const SizedBox(width: 16),
+                              // Dark Mode Button
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).cardColor,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Provider.of<ThemeNotifier>(
+                                      context,
+                                      listen: false,
+                                    ).toggleThemeTo(true);
+                                    if (title == 'Detail Resep') {
+                                      final recipe =
+                                          SampleData.getRendangRecipe();
+                                      switch (feature['label']) {
+                                        case 'Start Cooking':
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => StartCookingPage(
+                                                    recipe: recipe,
+                                                  ),
+                                            ),
+                                          );
+                                          break;
+                                        case 'Cooking Steps':
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => CookingStepsPage(
+                                                    recipe: recipe,
+                                                  ),
+                                            ),
+                                          );
+                                          break;
+                                        case 'Reviews':
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => ReviewsPage(
+                                                    recipe: recipe,
+                                                  ),
+                                            ),
+                                          );
+                                          break;
+                                        case 'Bookmark':
+                                          Navigator.pushNamed(
+                                            context,
+                                            '/bookmark',
+                                          );
+                                          break;
+                                        default:
+                                          Navigator.pushNamed(
+                                            context,
+                                            feature['route'],
+                                          );
+                                      }
+                                    } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        feature['route'],
+                                      );
+                                    }
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      feature['label'],
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 16),
                     ],
-                    ...features.map(
-                      (feature) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          children: [
-                            // Light Mode Button
-                            Expanded(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).cardColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Provider.of<ThemeNotifier>(context, listen: false)
-                                      .toggleThemeTo(false);
-                                  Navigator.pushNamed(context, feature['route']);
-                                },
-                                child: Center(
-                                  child: Text(
-                                    feature['label'],
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            // Dark Mode Button
-                            Expanded(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).cardColor,
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Provider.of<ThemeNotifier>(context, listen: false)
-                                      .toggleThemeTo(true);
-                                  Navigator.pushNamed(context, feature['route']);
-                                },
-                                child: Center(
-                                  child: Text(
-                                    feature['label'],
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
-            ],
+                  );
+                }).toList(),
           ),
         ),
       ),
