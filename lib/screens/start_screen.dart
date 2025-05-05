@@ -13,6 +13,7 @@ class StartScreen extends StatelessWidget {
         {'label': 'Cari Resep Berdasarkan Bahan', 'route': '/cari-resep-bahan'},
         {'label': 'Trending', 'route': '/trending'},
         {'label': 'Resep Baru', 'route': '/resep-baru'},
+        {'label': 'Cari Resep', 'route': '/cari-resep'},
       ],
       'Rencana Menu': [
         {'label': 'Rencana Menu', 'route': '/rencana'},
@@ -55,91 +56,111 @@ class StartScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            children: groupedFeatures.entries.map((entry) {
-              final title = entry.key;
-              final features = entry.value;
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (title.isNotEmpty) ...[
-                    const SizedBox(height: 24),
-                    Center(
-                      child: Text(
-                        title,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Light Mode",
+                      style: Theme.of(context).textTheme.titleMedium
                     ),
-                    const SizedBox(height: 16),
+                    Text(
+                      "Dark Mode",
+                      style: Theme.of(context).textTheme.titleMedium
+                    ),
                   ],
-                  ...features.map(
-                    (feature) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        children: [
-                          // Light Mode Button
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).cardColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 14,
-                                ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              ...groupedFeatures.entries.map((entry) {
+                final title = entry.key;
+                final features = entry.value;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (title.isNotEmpty) ...[
+                      const SizedBox(height: 24),
+                      Center(
+                        child: Text(
+                          title,
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
-                              onPressed: () {
-                                Provider.of<ThemeNotifier>(context, listen: false)
-                                    .toggleThemeTo(false);
-                                Navigator.pushNamed(context, feature['route']);
-                              },
-                              child: Center(
-                                child: Text(
-                                  feature['label'],
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    ...features.map(
+                      (feature) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            // Light Mode Button
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).cardColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          // Dark Mode Button
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).cardColor,
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 14,
-                                ),
-                              ),
-                              onPressed: () {
-                                Provider.of<ThemeNotifier>(context, listen: false)
-                                    .toggleThemeTo(true);
-                                Navigator.pushNamed(context, feature['route']);
-                              },
-                              child: Center(
-                                child: Text(
-                                  feature['label'],
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                onPressed: () {
+                                  Provider.of<ThemeNotifier>(context, listen: false)
+                                      .toggleThemeTo(false);
+                                  Navigator.pushNamed(context, feature['route']);
+                                },
+                                child: Center(
+                                  child: Text(
+                                    feature['label'],
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 16),
+                            // Dark Mode Button
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).cardColor,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Provider.of<ThemeNotifier>(context, listen: false)
+                                      .toggleThemeTo(true);
+                                  Navigator.pushNamed(context, feature['route']);
+                                },
+                                child: Center(
+                                  child: Text(
+                                    feature['label'],
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            }).toList(),
+                  ],
+                );
+              }).toList(),
+            ],
           ),
         ),
       ),

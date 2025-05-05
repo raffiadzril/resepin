@@ -45,17 +45,17 @@ class TrendingScreen extends StatelessWidget {
               runSpacing: 12, // Jarak vertikal antar elemen
               children: [
                 for (var recipe in [
-                  {
+                  { 
                     'title': 'Lapis Legit',
                     'chef': 'Chef Novalov',
-                    'time': '8 jam',
-                    'image': 'images/home/lapis_legit.jpg'
+                    'time': '2 jam',
+                    'image': 'images/home/lapislegit.jpg'
                   },
                   {
                     'title': 'Nasi Goreng Tahu Wortel',
                     'chef': 'Chef Juna',
-                    'time': '8 jam',
-                    'image': 'images/home/nasi_goreng.jpg'
+                    'time': '30 menit',
+                    'image': 'images/home/nasigorengtahuwortel.jpeg'
                   },
                   {
                     'title': 'Chocolate Mousse',
@@ -66,7 +66,7 @@ class TrendingScreen extends StatelessWidget {
                   {
                     'title': 'Ayam Panggang',
                     'chef': 'Chef Juna',
-                    'time': '8 jam',
+                    'time': '45 menit',
                     'image': 'images/home/ayamPanggang.png'
                   },
                   {
