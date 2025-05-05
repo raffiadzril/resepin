@@ -16,6 +16,7 @@ import 'screens/home/home_screen.dart';
 import 'screens/start_screen.dart';
 import 'screens/settings/profile_screen.dart';
 import 'screens/settings/settings_screen.dart';
+import 'screens/settings/edit_profil_screen.dart';
 import 'screens/home/notifikation_screen.dart';
 import 'screens/rencana/rencana_menu.dart';
 import 'screens/recipe/recipe_detail_page.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
+        '/edit-profile': (context) => const EditProfileScreen(),
         '/rencana': (context) => RencanaMenuScreen(),
         '/recipe-detail': (context) => const RecipeDetailPage(),
         '/rencana_after': (context) => RencanaMenuAfterScreen(),

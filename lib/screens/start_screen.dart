@@ -13,6 +13,7 @@ class StartScreen extends StatelessWidget {
         {'label': 'Cari Resep Berdasarkan Bahan', 'route': '/cari-resep-bahan'},
         {'label': 'Trending', 'route': '/trending'},
         {'label': 'Resep Baru', 'route': '/resep-baru'},
+        {'label': 'Notifikasi', 'route': '/notification'},
       ],
       'Rencana Menu': [
         {'label': 'Rencana Menu', 'route': '/rencana'},
@@ -24,6 +25,7 @@ class StartScreen extends StatelessWidget {
       ],
       'Profil': [
         {'label': 'Profil', 'route': '/profile'},
+        {'label': 'Edit Profil', 'route': '/edit-profile'},
       ],
       'Detail Resep': [
         {'label': 'Detail Resep', 'route': '/recipe-detail'},
