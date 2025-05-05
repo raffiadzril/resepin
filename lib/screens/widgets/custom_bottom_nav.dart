@@ -85,18 +85,26 @@ Widget build(BuildContext context) {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                    Icon(
                     _icons[index],
                     color: isSelected
-                        ? Colors.white
+                      ? Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black
+                        : Colors.white
+                      : Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black.withOpacity(0.5)
                         : Colors.white.withOpacity(0.5),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
                     _labels[index],
                     style: TextStyle(
                       color: isSelected
-                          ? Colors.white
+                        ? Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black
+                          : Colors.white
+                        : Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black.withOpacity(0.5)
                           : Colors.white.withOpacity(0.5),
                       fontSize: 12,
                     ),

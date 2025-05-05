@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resepin/screens/home/cariResepBahan_screen.dart';
+import 'package:resepin/screens/home/hasilPencarian_screen.dart';
 import 'package:resepin/screens/home/resepBaru_screen.dart';
 import 'package:resepin/screens/login/emailVerift.dart';
 import 'package:resepin/screens/login/forgotPassword.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/cari-resep-bahan': (context) => const CariresepbahanScreen(),
         '/trending': (context) => const TrendingScreen(),
         '/resep-baru': (context) => const ResepBaruScreen(),
+        '/cari-resep': (context) => const SearchResultScreen(selectedIngredients: []),
         '/notification': (context) => const NotificationScreen(),
         '/profile': (context) => ProfileScreen(),
         '/settings': (context) => const SettingsScreen(),
